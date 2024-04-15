@@ -1,0 +1,461 @@
+---
+title: "Better Talent and Rule Changes Have Resulted in More Goals in the NHL"
+subtitle: "An Analysis of the Increase in NHL Goal Scoring From 2011 to 2023"
+author: 
+  - Jason Ngo
+thanks: "Code and data are available at: https://github.com/thejasonminh/nhlpoints"
+date: "`r Sys.time()`"
+date-format: "D MMMM YYYY"
+format: 
+  pdf:
+    documentclass: article
+    geometry: margin = 1in
+    abstract: "Of the four major sports in the USA, hockey is the least popular. In an effort to grow popularity, the NHL (National Hockey League) strove to increase goal scoring. Using data from the NHL, this paper will analyze average leaguewide goal scoring per game from the 2011-2012 to 2022-2023 seaons. A linear regression model will also be created to predict goal scoring averages in the upcoming season. Results show that the NHL was succesful as the average goals per game increased over a 10 year period. These findings suggest that increased player talent and rule changes are primary factors."
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(here)
+library(knitr)
+
+league_data <- read.csv(here::here("outputs/data/league_data.csv"))
+master_dmen <- read.csv(here::here("outputs/data/master_dmen.csv"))
+master_forwards <- read.csv(here::here("outputs/data/master_forwards.csv"))
+goals_model <- read_rds(here::here("outputs/models/goals_model.rds"))
+```
+
+
+# Introduction
+Ice Hockey, Baseball, Football, and Basketball have become so popular in the United States, they've become branded as "The Big Four." The top leagues that operate in each sport: The NHL, MLB, NFL, and NBA are all centralized in the USA. Many of the top players that have played, or currently play, in these leagues are American, and their popularity only serves to inspire more youth to follow in their footsteps. There are no other sports that can threaten the stranglehold that these four sports have on the USA.
+
+However, hockey has fallen behind the other three. Viewership, revenue and general popularity all pale in comparison to the other three sports [@citestatista]. As a result; player salaries are lower in comparison to other sports and there is less youth talent in the pipelines. Two of the biggest factors for this decline are: High price of entry and low scoring. @citegear details the high upfront price of equipment and the amount of equipment required to play ice hockey. Because of this high upfront price, many kids elect not to choose hockey as their sport and instead elect for cheaper options such as basketball. Low scoring was a result of goalies having too much freedom, and teams creating bulletproof defensive tactics that involved clogging the middle of the ice and using their goalie to stifle momentum.
+
+As a response to the declining popularity, the NHL decided to implement rule changes and goalie equipment resizing to facilitate the increase of goal scoring. By increasing goal scoring, games would be more exciting to watch which in turn, would lead to increased viewership. This paper will analyze the effectiveness of these changes by drawing data from the NHL to analyze the estimand: Average leaguewide goals scored per game from the 2011-2012 season to the current (2022-2023) season. In addition, the paper will draw on a linear regression model to predict average goal scoring for the future season. 
+
+The findings show an increase of average goals scored per game over a 12 season period, with this current season exhibiting the highest goals scored per game during this period. The rule changes have given players more freedom to play and goalie equipment resizing has made goalies more susceptible to getting scored on. In addition, player talent has greatly increased over the years, with both forwards and defensemen exhibiting drastic offensive growth.
+
+In @sec-data of the paper, the source of the data as well as the three primary datasets are discussed. Strengths and weaknesses, methods of collection and terminologies will be explored. @sec-model of the paper will introduce a linear model, its justifications, and how it was constructed. In addition, the model will predict goal scoring averages for next season. @sec-results will discuss the results, touching on the trends and events that occurred over a 12-season period. @sec-discussion of the paper will touch on the factors that contributed to increased goal scoring as well as weaknesses and next steps.
+
+# Data {#sec-data}
+There are three primary datasets used for this paper. The first dataset, @sec-leagueavg, contains league averages from NHL seasons 2011-12 to 2022-23. The next dataset, @sec-fwds, contains the average points-per-game for every forward from the 2011-12 to 2022-23 seasons with a recorded average points-per-game pace of 1.00 or above. The last dataset, @sec-dmen, contains the average points-per-game for every defenseman from seasons 2011-12 to 2022-23 with a recorded average points-per-game pace of 0.60 or above.
+
+The analysis of these three datasets will be carried out using the statistical programming language `R` [@citeR], using the `tidyverse`[@citetidy], `here`[@citehere], and `readxl`[@citexl] packages. The figures and tables in the paper are generated using the, respectively, `ggplot2`[@citegg] and `knitr`[@citeknitr] packages.
+
+## League Averages Dataset {#sec-leagueavg}
+
+The league averages dataset, represented below in @tbl-1, is created through averaging each variable across every team in the league for the corresponding season. Seasons 2011-12 to 2016-17 has averages for 30 teams, seasons 2017-18 to 2020-21 has averages for 31 teams, and seasons 2021-22 and 2022-23 has averages for 32 teams. Each team is responsible for tracking their own statistics, which is then conglomerated and represented by both the NHL and third party websites. Statistics tracking is done during real time, while a game is in progress. Internal models are used to calculate percentage, average and advanced statistics.
+
+With every team using their own methods for tracking statistics, measurement bias comes into play. Because the NHL does not standardize methods for tracking statistics, some teams will skew statistics such that their team is represented better.
+
+```{r}
+#| label: tbl-1
+#| tbl-cap: The dataset containing averages from NHL seasons 2011-2012 to 2022-2023.
+#| echo: false
+#| warning: false
+
+kable(league_data, padding = 5)
+```
+
+Almost all of @tbl-1 is taken from @citehref, with the exception of the `Sh_Pct` column, which was pulled from @citenhl and merged with the larger dataset. The reasoning why I didn't use the NHL website for the majority of this dataset was that the NHL website did not support automatic calculation of league averages. There are 8 columns total in this league averages dataset:
+
+1. The `Season` column, which denotes the NHL season each average represents. 
+2. The `Goals_PG` column, which denotes the average goals per game for the respective season. 
+3. The `PP_PG` column, which denotes the average power plays, situations where one team has a man-advantage due to a penalty, per game for the respective season. 
+4. The `PP_Pct` column, which shows the percentage of power plays that were successful, or resulted in a goal, for the respective season. 
+5. The `SA` column, which details the leaguewide average shots a team faced per game, for the respective season.
+6. The `SV_Pct` column, which denotes the leaguewide average save percentage, which represents the percentage of total saves made, per season.
+7. The `GA_Avg` column, which represents the leaguewide average goals against per season.
+8. The `Sh_Pct` columnm which represents the leaguewide average shooting percentage. Shooting percentage represents the percentage of shots that are goals.
+
+The `Season` column was necessary as a timeframe is needed to anchor this analysis. The `Goals_PG` was chosen as it is the estimand of this paper. The remaining 6 columns were chosen as they all correlate to goal scoring, or situations that incentivizes goal scoring. For example, having a high shooting percentage correlates to having a higher goals per game, which would decrease the save percentage and increase the goals against average. The powerplay columns represent the opportunities teams have to score on the man advantage and the capability for teams to score on that advantage. 
+
+## Forwards Dataset {#sec-fwds}
+
+The forwards dataset, represented below in @tbl-2, represents the count of every forward from the 2011-12 to 2022-23 seasons that finished the season with, at minimum, a 1 point-per-game (PPG) pace. A point represents either a goal or an assist. The reason why I chose to filter the forwards by the 1 PPG pace is because there are few players that finish the season at a 1 PPG pace, which makes those players that are able to do so offensively gifted.
+
+The calculation of average points-per-game is quite simple: Simply take a player's total points and ratio it against the amount of games they've played. It is very simple to track a player's points since every game log has every goal with their respective assists recorded. This is true for both forwards and defensemen.
+
+```{r}
+#| label: tbl-2
+#| tbl-cap: The count of forwards that finish at a 1 PPG pace or above per season.
+#| echo: false
+#| warning: false
+
+kable(master_forwards |> count(Season) |> rename("PPG Players" = "n"), padding = 5)
+```
+
+All the data about forwards was taken from [@citenhl]. Since we are only concerned with the average offensive output of forwards, I chose to only analyze the points-per-game pace of forwards.
+
+## Defensemen Dataset {#sec-dmen}
+
+The defensemen dataset, represented below in @tbl-3, represents the count of every defensemen from the 2011-12 to 2022-23 seasons that finished the season with, at minimum, a 0.6 point-per-game pace. Rather than filtering by the 1 PPG pace like I did for forwards, I chose to filter defensemen by a 0.6 PPG pace. The reasoning for doing so is because defensemen simply do not contribute offensively as much as forwards do. A defensemen will rarely match a forward's offensive output because offense isn't the primary objective of a defensemen. However, talented defensemen that are table to contribute offensively usually do so at a 0.6 point-per-game pace or above. 
+
+```{r}
+#| label: tbl-3
+#| tbl-cap: The count of defensemen that finish at a 0.6 PPG pace or above per season.
+#| echo: false
+#| warning: false
+
+kable(master_dmen |> count(Season) |> rename("PPG Players" = "n"), padding = 5)
+```
+
+All the data regarding defensemen was also taken from [@citenhl]. Similar to the forwards, I am only concerned with the offensive output of defensemen so I chose to only analyze the point-per-game pace of defensemen.
+
+# Model {#sec-model}
+
+The goal of my modelling strategy is twofold. Firstly, I want to analyze to what effect power play opportunities, power play effectiveness, save percentage, goals against average and shooting percentages all have on average goals scored per game. Secondly, I want to use these results to predict the average goals scored per game for the next season.
+
+In the section below, the Bayesian analysis model used to investigate the multiple linear regression model of average goals scored per game is detailed.
+
+## Model set-up
+
+Define $y_i$ as the leaguewide average goals scored per game. Then $\beta_1$ is the leaguewide average power plays per game, $\gamma_1$ is leaguewide powerplay percentage, $\theta_1$ is leaguewide save percentage, $\phi_1$ is the leaguewide goals against average, and $\kappa_1$ is the leaguewide average shooting percentage.
+
+\begin{align} 
+y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
+\mu_i &= \alpha + \theta_i + \phi_i + \kappa_i + \beta_i * \gamma_i \\
+\alpha &\sim \mbox{Normal}(0, 2.5) \\
+\beta &\sim \mbox{Normal}(0, 2.5) \\
+\gamma &\sim \mbox{Normal}(0, 2.5) \\
+\theta &\sim \mbox{Normal}(0, 2.5) \\
+\phi &\sim \mbox{Normal}(0, 2.5) \\
+\kappa &\sim \mbox{Normal}(0, 2.5) \\
+\sigma &\sim \mbox{Exponential}(1)
+\end{align}
+
+We run the model in `R` [@citeR] using the `rstanarm` package of [@citestan]. We use the default priors from `rstanarm`.
+
+### Model justification
+
+We expect a positive relationship between average goals scored per game and power play opportunities, power play percentage, goals against average, and shooting percentage. The higher those four variables are, the more goals there should be. In particular, there should also be a negative relationship between goals scored and save percentage. With a lower save percentage, there are less saves that are occuring which means there should be more goals. Additionally, the two power play variables are interacted with eachother, since they are directly related to one another. There cannot be a power play percentage without a power play opportunity.
+
+## Model Prediction
+Taking the differences in averages from the 2021-2022 season and the 2022-2023 season, I will create a test dataset for the 2023-2024 season by adding those differences onto the averages from the 2022-2023 season and use the model with this test dataset to predict the average goals scored per game for the 2023-2024 season. @tbl-4 is the resulting mock 2023-2024 season averages data.
+```{r}
+#| echo: false
+#| warning: false
+
+test_league <- tibble(
+  Season = c(
+    "2023-24"
+    ),
+  Goals_PG = c(
+    3.22
+  ),
+  PP_PG = c(
+    3.25
+  ),
+  PP_Pct = c(
+    22.01
+  ),
+  SA = c(
+    30.8
+  ),
+  SV_Pct = c(
+    0.901
+  ),
+  GA_Avg = c(
+    3.02
+  ),
+  Sh_Pct = c(
+    10.33
+  )
+)
+
+prediction <- predict(goals_model, newdata = test_league)
+```
+
+```{r}
+#| label: tbl-4
+#| tbl-cap: A mock league averages dataset for the 2023-2024 NHL season.
+#| echo: false
+#| warning: false
+
+kable(test_league, padding = 5)
+```
+
+Using the mock data alongside the model, the predicted average goals per game for the 2023-2024 season is **3.21**.
+
+\newpage
+
+# Results {#sec-results}
+
+## Goals, Saves and Shooting
+
+```{r}
+#| label: fig-1
+#| fig-cap: An increase of average goals scored per game over 12 seasons.
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+
+league_data |> ggplot(aes(x = Season, y = Goals_PG)) +
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Leaguewide Average Goals Scored Per Game over 12 Seasons",
+    x = "Season",
+    y = "Average Goals P/G"
+  ) 
+```
+
+@fig-1 shows an upward trajectory of goal scoring per season. The horizontal axis denotes the season, and the vertical axis denotes the average goals scored per game. There are two things of note: First, there was a big spike in goal scoring starting in the 2017-18 season, with an increase of 0.2 from the 2016-17 season. with the subsequent seasons building on that jump. The second thing of note however, is the slight dip in scoring during the 2020-21 season where the average fell to 2.94 from the 3.02 the season before.
+
+In regards to the spike of scoring in the 2017-18 season, the NHL had implemented a few rule changes that helped facilitate scoring. Additionally, goalie equipment had shrunken by the time the season started, so goalies were scored on more.
+
+With respect to the slight dip in scoring in the 2020-21 season, that season took place during the height of the COVID-19 pandemic and due to health regulations, many players had to miss extended periods of time to self-quarantine after a positive test. The loss of skilled players for periods of time and the erosion of team chemistry led to the slight decrease in goals scored that season.
+
+\newpage
+
+```{r}
+#| label: fig-2
+#| fig-cap: Implications on increased goal scoring on save percentage, goals against average and shooting percentage.
+#| fig-subcap: ["Save Percentage", "Goals Against Average", "Shooting Percentage"]
+#| echo: false
+#| warning: false
+#| layout-ncol: 2
+
+library(tidyverse)
+
+league_data |> ggplot(aes(x = Season, y = SV_Pct)) +
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Leaguewide Save Percentage over 12 seasons",
+    x = "Season",
+    y = "Average Save %"
+  ) 
+
+league_data |> ggplot(aes(x = Season, y = GA_Avg)) +
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Leaguewide Goals Against Average over 12 seasons",
+    x = "Season",
+    y = "GAA"
+  ) 
+
+league_data |> ggplot(aes(x = Season, y = Sh_Pct)) +
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Leaguewide Average Shooting Percentage over 12 seasons",
+    x = "Season",
+    y = "Average Sh %"
+  ) 
+```
+
+@fig-2 shows the implications of increased goal scoring in average save percentage, goals against average and average shooting percentage. A better shooting percentage means more goals are scored. More goals scored increases the goals against average, and more goals scored means less saves are made.
+
+\newpage
+
+## More Talent, Better Power Plays
+
+```{r}
+#| label: fig-3
+#| fig-cap: The rise of offensively gifted forwards and defensemen over 12 seasons.
+#| fig-subcap: ["Forwards", "Defensemen", "Shots Per Game"]
+#| echo: false
+#| warning: false
+#| layout-ncol: 2
+
+library(tidyverse)
+
+master_forwards |> count(Season) |> ggplot(aes(x = Season, y = n)) +
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Productive Forwards over 12 seasons",
+    x = "Season",
+    y = ">= 1 PPG Forwards"
+  ) 
+
+master_dmen |> count(Season) |> ggplot(aes(x = Season, y = n)) +
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Productive Defensemen over 12 seasons",
+    x = "Season",
+    y = ">= 0.6 PPG Defensemen"
+  ) 
+
+league_data |> ggplot(aes(x = Season, y = SA)) +
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Avg. Shots Per Game over 12 seasons",
+    x = "Season",
+    y = "Shots Per Game"
+  ) 
+```
+
+@fig-3 showcases the increase of offensively talented forwards and defensemen over 12 seasons, with an additional graph of leaguewide shots per game to contextualize the increase in talent. For offensively talented forwards, the horizontal axis denotes the season while the vertical axis denotes the amount of forwards that finished the season at a pace of 1 PPG or greater. Similarly, the offensively talented defensemen graph has the same horizontal axis, while the vertical axis denotes the amount of defensemen that finished the season at a pace of 0.6 PPG or greater. For shots per game, the horizontal axis once again denotes the season and the vertical axis denotes the average leaguewide shots per game.
+
+Similar to the above section about goal scoring, the shift from the 2016-17 to the 2017-18 season brought an uptick in scoring alongside it. Regarding forwards, it is interesting to note that 2012-13 total of 20 players was never reached again until the 2017-18 season. The 2014-15, 2015-16, and 2016-17 seasons all saw a drop in productive forwards. This trend is not reflected in the defensemen graph. Aside from a slight drop in the 2016-17 season, the amount of offensively productive defensemen slowly increased over the years. This trend means that over the seasons, defensemen have gotten more involved with the offense. This could be a result of increased talent, or a shifting in tactics to allow defensemen to flourish offensively, or perhaps a mixture of both.
+
+However, what makes this increase in productivity even more substantial is looking at the average shots per game over 12 seasons. Over the 12 season period, the lowest average shots per game was 29, and thee highest was 31.8. This means that teams are barely shooting more; the average shots per game over 12 seasons has remained somewhat consistent. Players are simply doing more with their shots on goal.
+
+\newpage
+
+```{r}
+#| label: fig-4
+#| fig-cap: The implications of better talent on power play effectiveness.
+#| fig-subcap: ["Amount of Power Plays", "Effectiveness of Power Plays"]
+#| echo: false
+#| warning: false
+#| layout-ncol: 2
+
+library(tidyverse)
+
+league_data |> ggplot(aes(x = Season, y = PP_PG)) + 
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Power Play Opportunities over 12 seasons",
+    x = "Season",
+    y = "Avg. PP Opportunities"
+  ) 
+
+league_data |> ggplot(aes(x = Season, y = PP_Pct)) + 
+  geom_line(group = 1) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Power Play Effectiveness over 12 seasons",
+    x = "Season",
+    y = "Avg. PP %"
+  ) 
+```
+
+One consequence of increased offensive talent is a greater effectiveness of the power play. @fig-4 shows that, despite a decrease in overall power plays over a 12 season period, power play effectiveness has trended upwards. In essence, players are making more with less, and are doing so because of how much more skilled players are in comparison to players before.
+
+# Discussion {#sec-discussion}
+
+As evidenced by the results, goal scoring has steadily increased over the seasons. The NHL was successful in their goal of making the game more exciting, but how did they go about doing it? The two primary factors that led to this increase was an increase of mid-to-high tier player talent, as well as rule changes.
+
+\newpage
+
+## Good Players Becoming Great
+
+While I talked about the increase of the amount of productive forwards and defensemen, here I will discuss the increase in the amount of good forwards and compare them to the amount of elite forwards. To be classified as an elite forward, usually they would need to finish the season at around a 1.4 PPG pace. Because of how hard of a feat it is to achieve a sustained 1.4 PPG pace, there are very few elite forwards in the NHL. @fig-5 shows the amount of forwards that finish in multiple PPG ranges.
+
+```{r}
+#| label: fig-5
+#| fig-cap: Different Forward PPG brackets over 12 seasons.
+#| fig-subcap: ["1.4 or above", "Between 1.2 and 1.4", "Between 1.0 and 1.2"]
+#| echo: false
+#| warning: false
+#| layout-ncol: 2
+
+library(tidyverse)
+
+master_forwards |> filter(Points_PG >= 1.4) |> count(Season) |> ggplot(aes(x = Season, y = n)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Forwards above 1.4 PPG over 12 seasons",
+    x = "Season",
+    y = "Player Count"
+  ) 
+
+master_forwards |> filter(Points_PG >= 1.2 & Points_PG < 1.4) |> count(Season) |> ggplot(aes(x = Season, y = n)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Forwards Between 1.2 and 1.4 PPG over 12 seasons",
+    x = "Season",
+    y = "Player Count"
+  ) 
+  
+master_forwards |> filter(Points_PG >= 1.0 & Points_PG < 1.2) |> count(Season) |> ggplot(aes(x = Season, y = n)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Forwards Between 1.0 and 1.2 PPG over 12 seasons",
+    x = "Season",
+    y = "Player Count"
+  ) 
+```
+
+As evidenced, the amount of elite players have remained consistent over the seasons, although the big spike in the 2021-22 season may be a sign that times are changing. The bigger story here though, is the amount of players that finish in the 1.2 and 1.4 range from 2017-18 beyond. There is a dramatic spike in these productive players from before 2017-18 to that season and beyond. The graphs here show that there while the ceiling of player talent has remained the same, the floor is steadily increasing.
+
+\newpage
+
+The same level of growth can be seen with defensemen as well. @fig-6 shows the amount of defensemen that finish in multiple PPG brackets.
+
+```{r}
+#| label: fig-6
+#| fig-cap: Different Defenseman PPG brackets over 12 seasons.
+#| fig-subcap: ["0.95 or above", "Between 0.75 and 0.95", "Between 0.6 and 0.75"]
+#| echo: false
+#| warning: false
+#| layout-ncol: 2
+
+library(tidyverse)
+
+master_dmen |> filter(Points_PG >= 0.95) |> count(Season) |> ggplot(aes(x = Season, y = n)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Defensemen above 0.95 PPG over 12 seasons",
+    x = "Season",
+    y = "Player Count"
+  ) 
+
+master_dmen |> filter(Points_PG >= 0.75 & Points_PG < 0.95) |> count(Season) |> ggplot(aes(x = Season, y = n)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Defensemen Between 0.75 and 0.95 PPG over 12 seasons",
+    x = "Season",
+    y = "Player Count"
+  ) 
+  
+master_dmen |> filter(Points_PG >= 0.6 & Points_PG < 0.75) |> count(Season) |> ggplot(aes(x = Season, y = n)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "Defensemen Between 0.6 and 0.75 PPG over 12 seasons",
+    x = "Season",
+    y = "Player Count"
+  ) 
+```
+There is a slightly different trajectory with defensemen. It appears that while the floor of offensive production has remained somewhat consistent over the seasons, the ceiling has only gotten higher. It appears that we may be in the middle of a renaissance of offensively gifted defensemen, with multiple defensemen over the last two seasons exhibiting a PPG of 0.95 or above. To contextualize, a great forward should finish at a 1.00 PPG, so to see multiple defensemen reach those numbers is unprecedented.
+
+The floor of talent for forwards have increased, and the ceiling of talent for defensemen have increased, and both of these factors contributed to a spike in goal scoring.
+
+\newpage
+
+## Changes in 2017-18
+
+While the findings have shown a general increase in goal scoring, the biggest spike in productivity lies between the 2016-17 season and the 2017-18 season. While blossoming player talent is certainly a factor here, the biggest factor in play are rule changes and goalie equipment changes.
+
+### Rule Changes 
+
+@citerules details all of the rule changes effective for the beginning of the 2017-18 season. These changes include a power play consequence for a failing an off-side challenge (forcing an analyzed replay to see if a play was offside), denying time-outs for teams committing icing (throwing the puck down the entire length of the ice to delay the game and to change shifts), face-off placement changes and stricter enforcement on the stick-slashing around a player's hands. All of these changes, save for the face-off placement changes, had an effect on goal scoring. The off-side challenge rule change introduced more power plays, denying time-outs prevents tired players from resting up during icing infractions which led to worse defense, and the enforcement of slashing led to more offensive freedom and creativity for players skilled at working with the puck.
+
+### Goalie Equipment Changes
+
+@citegoalies shows the timeline of NHL goalie equipment changes. These changes included making goalie equipment and padding smaller to facilitate more scoring. While the changes were put into effect during the latter half of the 2016-17 season, teams became accustomed to the adjusted size and found more ways to score on these smaller goalies in the 2017-18 season. This is shown in the increase of goals against average and the drop in save percentage.
+
+## Weaknesses
+
+The primary weakness of my analysis is how surface level it is. I only focused on basic statistics such as per-game and per-season averages. A more richer and defined analysis would've been done if advanced statistics were used in this analysis. Analysis on these advanced stats would've been conducted on a team level and on an individual level to further investigate the causes for the increase in goal scoring.
+
+Another weakness of my analysis is that it covers leaguewide averages per season. One problem with taking leaguewide averages is that in the NHL, there is very wide gap in skill between the teams at the top and teams at the bottom. Due to how drafting works in the NHL, teams at the bottom of the standings are encouraged to play worse in hopes of a better chance at drafting better players. In an analysis of leaguewide goal scoring, it feels wrong to include teams that are prioritizing losing over winning for a better future.
+
+## Next Steps
+
+An appropriate next step of this analysis is to compare the increase in goal scoring with viewership numbers, to see if the NHL was successful in drawing more eyes to the game. Additionally, to further analyze viewership rates, analysis on streaming options, media narratives and rivalry match-ups is recommended. Alongside the analysis on viewership, analysis on the amount of youth talent based on national viewership in not just America, but for European countries as well, is recommended to determine the outlook of the future of the NHL.
+
+\newpage
+
+# References
+
+
