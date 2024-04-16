@@ -42,3 +42,4 @@ head(simulated_data)
 
 #### Save data ####
 write_csv(simulated_data,"outputs/data/simulated_data.csv")
+

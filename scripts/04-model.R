@@ -1,8 +1,8 @@
 #### Preamble ####
 # Purpose: Generates a linear model based on NHL data
-# Author: Jason Ngo
-# Data: Apr 16 2023
-# Contact: jason_ngo@live.com
+# Author: Bernice Bao
+# Data: Apr 16 2024
+# Contact: bernice.bao@mail.utoronto.ca
 # License: MIT
 
 
@@ -11,9 +11,10 @@ library(tidyverse)
 library(rstanarm)
 
 #### Read data ####
-league_data <- read.csv(here::here("outputs/data/league_data.csv"))
+cleaned_ward_data <- read.csv(here::here("outputs/data/cleaned_ward_data.csv"))
+cleaned_wifi_data <- read.csv(here::here("outputs/data/cleaned_wifid_data.csv"))
 
-### Model data ####
+### Model data 1 ####
 goals_model <-
   stan_glm(
     formula = Goals_PG ~ SV_Pct + GA_Avg + Sh_Pct + PP_PG * PP_Pct,
