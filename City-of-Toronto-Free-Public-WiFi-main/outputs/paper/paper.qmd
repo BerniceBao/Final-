@@ -3,8 +3,9 @@ title: "Urban Connectivity Dynamics: Analyzing Free Public WiFi Distribution in 
 subtitle: "By Building Typology, Population, and Socioeconomic Indicators"
 author: 
   - Bernice Bao
-thanks: "Code and data are available at: <https://open.toronto.ca/dataset/city-of-toronto-free-public-wifi/>, and <https://open.toronto.ca/dataset/ward-profiles-25-ward-model/>."
-date: 23 January 2024
+thanks: "Code and data are available at: <https://github.com/BerniceBao/Free-Public-WiFi-Distribution-in-Toronto>
+ <https://open.toronto.ca/dataset/city-of-toronto-free-public-wifi/>, and <https://open.toronto.ca/dataset/ward-profiles-25-ward-model/>."
+date: 15 April 2024
 date-format: long
 abstract: "In the era of increasing digital dependence, understanding the intricacies of urban internet connectivity is pivotal for fostering an effective and technologically equitable society. Public WiFi is a vital tool in modern society, offering internet access and supporting economic development, education, and social connections. In response to the increasing importance of internet connectivity in contemporary urban life, I investigate the distribution of free public WiFi in Toronto. This paper aims to provide key statistics on the distribution of public WiFi in Toronto and analyze the impact of building types, demographics, and economic influences on its distribution to gain as comprehensive a picture as possible of the role and impact of public WiFi in our lives."
 format: pdf
