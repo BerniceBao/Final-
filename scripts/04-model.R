@@ -31,5 +31,3 @@ saveRDS(
   goals_model,
   file = here::here("outputs/models/goals_model.rds")
 )
-
-

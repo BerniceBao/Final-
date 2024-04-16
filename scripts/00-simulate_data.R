@@ -1,57 +1,44 @@
 #### Preamble ####
-# Purpose: Simulates the primary datasets of interest
-# Author: Jason Ngo
-# Data: Apr 16 2023
-# Contact: jason_ngo@live.com
+# Purpose: Get data on Location and description data of all City of Toronto free public WiFi locations and make table
+# Author: Bernice Bao
+# Date: 23 January 2024 
+# Contact: bernice.bao@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Some knowledge of NHL statistics terminology
+# Pre-requisites: NA
 
 
 #### Workspace setup ####
 library(tidyverse)
-set.seed(2223)
+install.packages("opendatatoronto")
+install.packages("knitr")
+
+library(knitr)
+library(janitor)
+library(lubridate)
+library(opendatatoronto)
+library(tidyverse)
+
+citation() # Get the citation information for R
+citation("ggplot2") # Get citation information for a package
+
 
 #### Simulate data ####
-## Season column correlates to the NHL season. Column XX represents season 20XX - 20YY where YY is (XX  + 1) ##
-## For example, column 16 represents season 2016 - 2017
+set.seed(85)
 
-### Tibble for the league data simulation ###
-## Avg_Goals_Game has a min of 1, since realistically every team should average 1 goal a game atleast ##
-## Avg_Shots_Game has a min of 20 and max of 45, since those averages are hard to come by in a normal NHL season
-## Avg_PP_Percentage has a min of 5 and a max of 40, for the same reasons above
-## Avg_Sh_Percentage has a min of 5 and a max of 20, for the same reasons above
-nhlleaguesim <- tibble(
-  Season = c(
-    11:22
-  ),
-  Avg_Goals_Game = c(
-    runif(n = 12, min = 1, max = 5)
-  ),
-  Avg_Shots_Game = c(
-    runif(n = 12, min = 20, max = 45)
-  ),
-  Avg_PP_Percentage = c(
-    runif(n = 12, min = 5, max = 40)
-  ),
-  Avg_Sh_Percentage = c(
-    runif(n = 12, min = 5, max = 20)
-  ),
-  Avg_PP_Opportunities = c(
-    runif(n = 12, min = 1, max = 6)
+simulated_data <-
+  tibble(
+    has_wifi = rep(x = "Y", times = 100),
+    # Based on: https://www.toronto.ca/city-government/accountability-operations-customer-service/long-term-vision-plans-and-strategies/smart-cityto/internet-connectivity-connectto/connectto-free-public-wifi-locations/
+    building_type = c(
+      rep(x = "library", times = 20),
+      rep(x = "Arena", times = 40),
+      rep(x = "Community", times = 40)
+    ),
+    ward = rep(c(x = "Etobicoke North", "Etobicoke Centre", "Etobicoke-Lakeshore", "Parkdale-High Park", "York South-Weston", "York Centre", "Humber River-Black Creek", "Eglinton-Lawrence", "Davenport", "Spadina-Fort York", "University-Rosedale", "Toronto-St. Paul's", "Toronto Centre", "Toronto-Danforth", "Don Valley West", "Don Valley East", "Don Valley North", "Willowdale", "Beaches-East York", "Scarborough Southwest", "Scarborough Centre", "Scarborough-Agincourt", "Scarborough North", "Scarborough-Guildwood", "Scarborough-Rouge Park"), times = 4),
+    ward_number =rep(c(1:25), times = 4)
   )
-)
 
-### Tibble for player simulation data ###
-## Fwd_Pts_Game, since we are looking for point per game players, has a min of 1 and a max of 2 ##
-## Dmen_Pts_Game, since we are looking for productive defensemen, has a min of 0.5 and a max of 1.5 ##
-nhlplayersim <- tibble(
-  Season = c(
-    11:22
-  ),
-  Fwd_Pts_Game = c(
-    runif(n = 12, min = 1, max = 2)
-  ),
-  Dmen_Pts_Game = c(
-    runif(n = 12, min = 0.5, max = 1.5)
-  )
-)
+head(simulated_data)
+
+#### Save data ####
+write_csv(simulated_data,"outputs/data/simulated_data.csv")

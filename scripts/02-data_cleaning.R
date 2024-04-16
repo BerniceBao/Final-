@@ -1,129 +1,71 @@
 #### Preamble ####
-# Purpose: Isolates the columns of interest, sums the data and cleans up the names of columns.
-# Author: Jason Ngo
-# Data: Apr 16 2023
-# Contact: jason_ngo@live.com
+# Purpose: Cleans the raw Toronto free public wifi data and 25 wards data from opendatatoronto r package
+# Author: Bernice Bao
+# Date: 23 January 2024
+# Contact: bernice.bao@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Some knowledge of NHL statistics terminology
-
+# Pre-requisites: run "01-download_data.R" before executing this file
 
 #### Workspace setup ####
 library(tidyverse)
-library(here)
-library(readxl)
+library(janitor)
+library(dplyr)
 
-league_data <- read_excel(here::here("inputs/data/Summaryleague_1122.xlsx"))
-
-## The datasets from nhl.com come in pages, so I will load them and merge them immediately ##
-shooting_p1 <- read_excel(here::here("inputs/data/shooting_1122p1.xlsx"))
-shooting_p2 <- read_excel(here::here("inputs/data/shooting_1122p2.xlsx"))
-shooting_p3 <- read_excel(here::here("inputs/data/shooting_1122p3.xlsx"))
-shooting_p4 <- read_excel(here::here("inputs/data/shooting_1122p4.xlsx"))
-master_shooting <- rbind(shooting_p1, shooting_p2) |> rbind(shooting_p3) |> rbind(shooting_p4)
-
-forwards_p1 <- read_excel(here::here("inputs/data/forwards_1122p1.xlsx"))
-forwards_p2 <- read_excel(here::here("inputs/data/forwards_1122p2.xlsx"))
-forwards_p3 <- read_excel(here::here("inputs/data/forwards_1122p3.xlsx"))
-master_forwards <- rbind(forwards_p1, forwards_p2) |> rbind(forwards_p3)
-
-dmen_p1 <- read_excel(here::here("inputs/data/dmen_1122p1.xlsx"))
-dmen_p2 <- read_excel(here::here("inputs/data/dmen_1122p2.xlsx"))
-dmen_p3 <- read_excel(here::here("inputs/data/dmen_1122p3.xlsx"))
-master_dmen <- rbind(dmen_p1, dmen_p2) |> rbind(dmen_p3)
 
 #### Clean data ####
+# load in raw data
+raw_wifi_data <- read_csv("inputs/data/wifi_data.csv")
 
-### Fixing up the league_data dataset and renaming columns ###
-league_data[12,1] = "2011-12"
-league_data <- league_data |> rename(
-  "Goals_PG" = "G",
-  "PP_PG" = "PPO",
-  "PP_Pct" = "PP%",
-  "SA" = "SA",
-  "SV_Pct" = "SV%",
-  "GA_Avg" = "GAA"
-)
+# clean and select column of interest
+cleaned_wifi_data <-
+  raw_wifi_data |>
+  filter(has_wifi == "Y")|> # filter on the locations with free public wifi
+  select(building_type, ward, ward_number) # only select the relevant columns
+  
+# rename the variables
+cleaned_wifi_data <-
+  cleaned_wifi_data |>
+  rename(BuildingType = building_type, Ward = ward, WardNumber = ward_number)
 
-### We're only concerned with season and p/gp from forwards and defensemen, so let's select those ###
-master_forwards <- master_forwards |> select("Season", "P/GP")
-master_dmen <- master_dmen |> select("Season", "P/GP")
-
-## Rename P/GP to something cleaner ##
-master_forwards <- master_forwards |> rename("Points_PG" = "P/GP")
-master_dmen <- master_dmen |> rename("Points_PG" = "P/GP")
-
-### For shooting, we want season and s% (shooting percentage) ###
-master_shooting <- master_shooting |> select("Season", "S%")
-
-### For shooting, we want means per season ###
-master_shooting <- master_shooting |> group_by(Season) |> summarise(mean = mean(`S%`))
-## Round the values so they're nicer ##
-master_shooting <- master_shooting |> round(2)
-## Rename the mean column ##
-master_shooting <- master_shooting |> rename("Sh_Pct" = "mean")
-
-### We want to merge shooting data with league data, so let's standardize the Season column ###
-master_shooting <- master_shooting |> mutate(
-  Season = recode(
-    Season,
-    "20112012" = "2011-12",
-    "20122013" = "2012-13",
-    "20132014" = "2013-14",
-    "20142015" = "2014-15",
-    "20152016" = "2015-16",
-    "20162017" = "2016-17",
-    "20172018" = "2017-18",
-    "20182019" = "2018-19",
-    "20192020" = "2019-20",
-    "20202021" = "2020-21",
-    "20212022" = "2021-22",
-    "20222023" = "2022-23"
-  )
-)
-
-## Let's standardize the format of the Season column across our datasets ##
-
-master_forwards <- master_forwards |> mutate(
-  Season = recode(
-    Season,
-    "20112012" = "2011-12",
-    "20122013" = "2012-13",
-    "20132014" = "2013-14",
-    "20142015" = "2014-15",
-    "20152016" = "2015-16",
-    "20162017" = "2016-17",
-    "20172018" = "2017-18",
-    "20182019" = "2018-19",
-    "20192020" = "2019-20",
-    "20202021" = "2020-21",
-    "20212022" = "2021-22",
-    "20222023" = "2022-23"
-  )
-)
-
-master_dmen <- master_dmen |> mutate(
-  Season = recode(
-    Season,
-    "20112012" = "2011-12",
-    "20122013" = "2012-13",
-    "20132014" = "2013-14",
-    "20142015" = "2014-15",
-    "20152016" = "2015-16",
-    "20162017" = "2016-17",
-    "20172018" = "2017-18",
-    "20182019" = "2018-19",
-    "20192020" = "2019-20",
-    "20202021" = "2020-21",
-    "20212022" = "2021-22",
-    "20222023" = "2022-23"
-  )
-)
-
-league_data <- merge(league_data, master_shooting, by = "Season")
+head(cleaned_wifi_data)
 
 #### Save data ####
-write_csv(league_data, here::here("outputs/data/league_data.csv"))
-write_csv(master_dmen, here::here("outputs/data/master_dmen.csv"))
-write_csv(master_forwards, here::here("outputs/data/master_forwards.csv"))
+# write cleaned data as csv
+write_csv(cleaned_wifi_data, "outputs/data/cleaned_wifi_data.csv")
 
+
+
+#### Clean data 2 ####
+# load in raw data
+raw_ward_data <- read_csv("inputs/data/ward_data.csv")
+
+# clean and select column of interest
+cleaned_ward_data <-
+  raw_ward_data |>
+  filter(`City of Toronto Profiles` == "Total - Age" | `City of Toronto Profiles` == "Total - Household total income groups in 2020 for private households - 25% sample data")|> # filter on the population and income
+  select(`City of Toronto Profiles`, ...3, ...4, ...5, ...6, ...7, ...8, ...9, ...10, ...11, ...12, ...13, ...14, ...15, ...16, ...17, ...18, ...19, ...20, ...21, ...22, ...23, ...24, ...25, ...26, ...27) |># only select the relevant columns
+  t()
+
+# since this dataset organizes the data in first column as variables
+# the variables I interested in have to be considered as observations by R 
+# so I create a new data frame and keep all the data same 
+# move the variables to the correct position
+
+cleaned_ward_data <- data.frame(cleaned_ward_data)
+colnames(cleaned_ward_data ) <- cleaned_ward_data[1,]
+cleaned_ward_data <- cleaned_ward_data[-1,]
+rownames(cleaned_ward_data) <- 1:25
+
+cleaned_ward_data <- cleaned_ward_data |> mutate(WardNumber = c(1:25))
+
+# rename the variables
+cleaned_ward_data <-
+  cleaned_ward_data |>
+  rename(Population = `Total - Age`, Income = `Total - Household total income groups in 2020 for private households - 25% sample data`)
+
+head(cleaned_ward_data)
+
+#### Save data ####
+# write cleaned data as csv
+write_csv(cleaned_ward_data, "outputs/data/cleaned_ward_data.csv")
 

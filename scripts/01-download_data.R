@@ -1,22 +1,43 @@
 #### Preamble ####
-# Purpose: Describes the acquisition process of the datasets used
-# Author: Jason Ngo
-# Data: Apr 16 2023
-# Contact: jason_ngo@live.com
+# Purpose: Downloads and saves the data from the opendatatoronto r package
+# Author: Bernice Bao
+# Date: 23 January 2024
+# Contact: bernice.bao@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: A working internet connection
-
+# Pre-requisites: NA
 
 #### Workspace setup ####
+library(opendatatoronto)
 library(tidyverse)
+library(dplyr)
 
 #### Download data ####
 
-## League averages data downloaded from https://www.hockey-reference.com/leagues/stats.html#stats ##
-## Data on shooting is from nhl.com/stats/teams, from seasons 2011-2012 to 2022-2023 and viewing Shots By Type report ##
-## Data on forwards and dmen is from nhl.com/stats/skaters, from seasons 2011-2012 to 2022-2023 with 15 minimum games ## ##
-## forwards data was selected by filtering all players with 1.0 points per game or above from those seasons ##
-## defensemen data was selected by filtering all players with 0.6 points per game or above from those seasons ##
+# get package
+package <- show_package("city-of-toronto-free-public-wifi")
+# get all resources for this package
+resources <- list_package_resources("city-of-toronto-free-public-wifi")
+# identify datastore resources; by default, Toronto Open Data sets datastore resource format to CSV for non-geospatial and GeoJSON for geospatial resources
+datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
+# load the first datastore resource as a sample
+wifi_data <- filter(datastore_resources, row_number()==1) |> get_resource()
+wifi_data
 
-# I acknowledge that the nhl api exists and is a usable R package, however.. #
-# ..isolating specific statistics by teams and players during a 10 year period using the API was too difficult #
+#### Save data ####
+# change raw_data to whatever name you assigned when you downloaded it.
+write_csv(wifi_data, "inputs/data/wifi_data.csv") 
+
+
+
+#### Download data 2####
+
+df = list_package_resources("6678e1a6-d25f-4dff-b2b7-aa8f042bc2eb") |>
+  filter(name == 
+           "2023-WardProfiles-2011-2021-CensusData") |>
+  get_resource()
+ward_data <- df$`2021 One Variable`
+
+#### Save data 2 ####
+write_csv(ward_data,"inputs/data/ward_data.csv")
+
+
