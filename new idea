@@ -1,0 +1,39 @@
+Have parts of this paper been edited using an AI-powered tool of any kind(?)        If this was the case, this needs to be documented.
+
+
+- The first two sentences need to be cleaned up.         There really is no reason for the overly decorated language.         You can make the same arguments with more concise language.
+- Consider adding how exactly you will achieve your goals (in general this is a discussion of a particular dataset, a methodology, etc), and also very briefly what you ended up finding in this study — both of these are important components of an abstract.
+
+- The intro needs to also include at least a glimpse into what was actually found.
+- The flowery language makes this section really hard to read.       Remember that you are writing an academic paper (with a scientific slant) and not a magazine article.       For future papers I strongly recommend that you make an effort to dispense with the overly decorated sentences.       Try just getting to the point.
+
+
+- The toronto fire incidents dataset is mention at the beginning of the Data section (?)
+- Not clear what is meant by "monthly groups" when talking about creating a statistic of sorts.      Also not clear what that statistic is and how it relates to what is in Table 1
+- No need to describe which specific function where used in the data cleaning or data processing steps.      It is sufficient to just cite the packages used in the analysis.
+- The portion discussing that the ward profiles data come in an Excel file with various tabs, at best, belongs in the Appendix!!      You could just hint that the population and income values come from 2021 Census, and send the reader to the Appendix for more specifics on which of the available data files were used
+- When you introduce the ward data, you need to specify how income is reported.      Is this average or median annual household income?      or?
+- It is not clear that the conclusions you are drawing from Figure 1 can actually be drawn on the basis of that plot alone.      Same for Figure 2!
+
+- Concluding remarks and summary of findings a little weak.
+
+
+Tables are cross-referenced.     Figures are not!
+
+
+
+- I am not certain what Figure 1 is.    Is that just the population in each ward?    If so, where does the amount of free public WiFi come into play?    You need to be clear in the caption of the plot what the dots represent.    Also ward number is not a true numeric variable.    It's not common for it to be on the y-axis.    Same for Figure 2.
+- could make better use of caption in both tables and figure.
+
+- Be mindful of missing years in your citation.   There should be no n.d. in your References.
+
+
+- there should be no install.packages() functions in your simulation script.
+- also not clear why your simulation scripts need to have the code that prints out R citation.
+- the has_wifi variables is not really clear.   It looks redundant..   given the way you've set up the data.   Maybe you could have considered counts in each ward:building type combination.
+
+
+
+Writing needs to be more specific.  It's way too flowery.
+Repo needs to be linked in the paper.
+This was an interesting idea, let down by the writing.  Please do take advantage of Dory's office hours for future papers.  The foundation is there for you to do well in this course.
