@@ -52,7 +52,7 @@ Public WiFi, often taken for granted in our daily lives, emerges as a vital tool
 
 Beyond the conveniences of internet access, it serves as a linchpin fostering economic development, facilitating education, and fortifying social connections. The present study, anchored in the evolving landscape of Toronto, endeavors to unravel the mysteries surrounding the distribution of public WiFi. This paper embarks on a compelling exploration of the distribution of free public WiFi in Toronto, recognizing it as not merely a technological amenity but a cornerstone of our modern existence. By examining the impact of various factors, such as building types, demographic patterns, and economic influences, this research seeks to paint a comprehensive portrait of the role and impact of public WiFi in our lives, providing readers with a lens to comprehend the symbiotic relationship between technology and urban living.
 
-This research is divided into three main parts: `Introduction`(@sec-intro), `Data`(@sec-data), and `Conclusion`(@sec-conclusion). Commencing with the Data section, a meticulous exposition ensues, delineating the origin of datasets garnered from the OpenDataToronto Library and expounding upon the procedural rigors applied for data refinement and analysis. The conclusion part shows what I found during the analysis, while goes deeper into those findings, and finally wraps up the main discoveries from this paper about public free WiFi in Toronto.
+This research is divided into three main parts: `Introduction`(@sec-intro), `Data`(@sec-data), `Model` (@sec-model), `Results` (@sec-results), and `Discussion` (@sec-disc). Commencing with the Data section, a meticulous exposition ensues, delineating the origin of datasets garnered from the OpenDataToronto Library and expounding upon the procedural rigors applied for data refinement and analysis. The conclusion part shows what I found during the analysis, while goes deeper into those findings, and finally wraps up the main discoveries from this paper about public free WiFi in Toronto.
 
 
 
@@ -116,7 +116,10 @@ Toronto Centre (Ward 13) at $68965, and Etobicoke-Lakeshore (Ward 3) at $65575. 
 wards with the lowest household income are: Humber River-Black Creek (Ward 7) at $65,458,
 York South-Weston (Ward 5) at $67,964, and Scarborough Centre (Ward 21) at $70,624.
 
-# Conclusion {#sec-conclusion}
+
+# Model {#sec-model}
+
+# Results {#sec-results}
 
 ## Demand
 
@@ -185,10 +188,16 @@ We can conclude that there is no observable correlation between the number of To
 
 \newpage
 
+# Discussion {#sec-disc}
+
+
 All in all, a significant number of people are increasingly relying on public Wi-Fi when they're out and about, underscoring their need for instant, hassle-free connectivity. Whether for work, social interaction or navigation, the modern lifestyle requires a seamless Internet experience, and the increasing number of academic and recreational projects joining the ranks of the application of public free WiFi is undoubtedly a strong support for the development of public WiFi in Toronto.
 
 Furthermore, our data analysis indicates that while population size does exert a modest impact on the dissemination of free WiFi, the average income of a region lacks sufficient influence to be regarded as a determining factor in the allocation of public WiFi.
 
+
+
+# Appendix 
+\newpage
+
 # References
-
-

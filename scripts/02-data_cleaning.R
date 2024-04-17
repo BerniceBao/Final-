@@ -1,7 +1,7 @@
 #### Preamble ####
 # Purpose: Cleans the raw Toronto free public wifi data and 25 wards data from opendatatoronto r package
 # Author: Bernice Bao
-# Date: 23 January 2024
+# Date: Apr 16 2024
 # Contact: bernice.bao@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: run "01-download_data.R" before executing this file

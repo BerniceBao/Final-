@@ -1,7 +1,7 @@
 #### Preamble ####
 # Purpose: Get data on Location and description data of all City of Toronto free public WiFi locations and make table
 # Author: Bernice Bao
-# Date: 23 January 2024 
+# Date: 15 April 2024 
 # Contact: bernice.bao@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: NA
