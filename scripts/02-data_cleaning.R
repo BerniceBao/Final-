@@ -85,10 +85,11 @@ new_data <-
   cleaned_wifi_data |> 
   group_by(WardNumber) |> 
   mutate(WardNumber = str_replace(WardNumber, "05", "5"))|> 
-  summarise(Numer_of_free_wifi = n()) |> 
-  arrange(WardNumber)
+  summarise(Numer_of_free_wifi = n())|> 
   
+  arrange(WardNumber)
 
+  
 head(new_data)
 # Add new variables of building type combination counted in each ward
 
