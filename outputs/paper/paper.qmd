@@ -185,7 +185,7 @@ y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
 
 We run the model in `R` [@citeR] using the `rstanarm` package of [@citestan]. We use the default priors from `rstanarm`.
 
-### Model justification
+## Model justification
 
 We expect a positive relationship between average goals scored per game and power play opportunities, power play percentage, goals against average, and shooting percentage. The higher those four variables are, the more goals there should be. In particular, there should also be a negative relationship between goals scored and save percentage. With a lower save percentage, there are less saves that are occuring which means there should be more goals. Additionally, the two power play variables are interacted with eachother, since they are directly related to one another. There cannot be a power play percentage without a power play opportunity.
 
@@ -212,7 +212,6 @@ building_data |>
   geom_col() +
   theme(axis.text.x = element_text(angle = 90, hjust=1)) +
   labs(
-    title = "The number of free Wifi in Toronto by building type",
     x = "Building Types",
     y = "Number of Free Public Wifi"
   ) 
@@ -233,7 +232,7 @@ For example, libraries have embraced technology, expanding their offerings beyon
 
 ```{r}
 #| label: fig-1
-#| fig-cap: Linear regression model of the number of produced ASL words by the range of children's ages during their early developmental years.
+#| fig-cap: Linear regression model of the number of Free public wifi by the populations of all wards in Toronto.
 #| echo: false
 #| warning: false
 
@@ -268,7 +267,7 @@ In fact, this is similar to the distribution of free public WiFi in Toronto, but
 
 ```{r}
 #| label: fig-2
-#| fig-cap: Linear regression model of the number of produced ASL words by the range of children's ages during their early developmental years.
+#| fig-cap: Linear regression model of the number of Free public wifi by the Average Income of all wards in Toronto.
 #| echo: false
 #| warning: false
 
