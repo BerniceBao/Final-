@@ -21,12 +21,15 @@ bibliography: references.bib
 #| echo: false
 
 #### Workspace set-up ####
+tinytex::install_tinytex(force = TRUE)
 library(tidyverse)
 library(lubridate)
 library(knitr)
 library(palmerpenguins)
 library(dplyr)
 library(here)
+library(modelsummary)
+
 
 #### Read in the data ####
 cleaned_ward_data <-
@@ -69,67 +72,65 @@ This research is divided into three main parts: `Introduction`(@sec-intro), `Dat
 
 # Data {#sec-data}
 
-In this section, I will explore the diverse modes of `R`-based data collection and generation within the `RStudio` environment [@citeR; @citeRStudio]. The data under scrutiny in this paper originates from the `opendatatoronto` R package [@citeODT], specifically drawing from theLocation and description data of Toronto free public WiFi dataset, as well as the 2021 Ward Profiles based on the 25-Ward model dataset. The analysis benefits from additional functionalities harnessed from various R packages such as `tidyverse` [@citeTidyverse] installed to gain access to other important R packages, `here` [@citeHere] created a path to specific saved files, `readr` [@citeReadr] read and imported data, `ggplot2` [@citeGgplot2] made the data visualizations, `knitr` [@citeKnitr] and `dplyr` [@citeDplyr] manipulated and cleaned data, and `modelsummary` [@citemodelSummary] to create summary tables. Further insights into the deployment of these packages will be expounded upon in the ensuing subsections.
+In this section, I'll explore the R-based data collection process and generate the visualizations in the RStudio environment [@citeR;@citeRStudio]. All the datasets studied in this paper come from "Open Data Toronto" [@citeODT], a data source allowing researchers and policymakers to access and utilize the data which can be downloaded for free from its website and GitHub repository, in order to finish various statistical analyses, research studies, and decision-making processes.  The two main datasets used in this paper are @toronto_wifi_dataset, which provides descriptive data such as the location and building type of Toronto free public wifi, and @toronto_ward_profiles, which contains economic, population and other social information of all 25 wards in Toronto collected in 2021.
+
+The analysis benefits from additional functionalities harnessed from various R packages such as `tidyverse` [@citeTidyverse] installed to gain access to other important R packages, `here` [@citeHere] created a path to specific saved files, `readr` [@citeReadr] read and imported data, `ggplot2` [@citeGgplot2] made the data visualizations, `knitr` [@citeKnitr] and `dplyr` [@citeDplyr] manipulated and cleaned data, and `modelsummary` [@citemodelSummary] to create summary tables. Further insights into the deployment of these packages will be expounded upon in the ensuing subsections.
 
 
 
 ## First Dataset: Location and description data of Toronto free public WiFi
 
-The data I mainly used to generate the visualizations in this paper is City of Toronto Free Public WiFi from Open Data Toronto [@citeODT] that is an open source tool designed to be publicly available and encourage the development of valuable insights. The dataset, released by Toronto's Department of Information & Technology, captures information on location and description data free public WiFi locations in the City of Toronto and is updated monthly.
+The data I primarily use to generate visualizations in this article is an open source tool designed to be publicly available and to encourage the development of valuable insights. The dataset[@toronto_wifi_dataset], published by Toronto's Department of Information Technology, collects location information and descriptive data for free public WiFi locations in the City of Toronto and is updated monthly, with the latest update on April 15, 2024. According to the data characteristics described on the portal, these data include address, building type, building name, public name, zip code, whether there is public wifi, owner, ward, ward number, and other geographical information.
 
-The data used for analysis in this article is as of January 3, 2024. According to the data characteristics described on the portal, this data should include information such as address, building type, building name, postal code, whether there is public wifi, etc. Through systematic analysis, it is found that only building type is the main subject variable that can be used to study the influencing factors of distribution. In order to quickly extract available data, only columns with reasonable data are retained during the data cleaning process (see Table 1). Basic data cleaning of column values to shorten the description of different types of clinics and improve readability. I create a statistic on the basis of monthly groups, using kable() from knitr to create @tbl-wifi.
+Through further systematic analysis, among the statistical data about public wifi, our analysis is particularly interested in building type, ward and ward number, which are very reasonable as the main subject variables that can be used to study the influencing factors of public wifi distribution. Among them, ward and ward number belong to the nature of the distribution of public wifi in Toronto itself, and do not take into account the influencing factors to be explored, but provide a new idea that can be connected with more social information associated with ward to explore more influential factors that can be studied.
+
+Since I only focused on the impact of building type and public wifi layout in Toronto, I kept only the building type, ward, and ward number columns during the data cleaning process in order to quickly extract available data. In addition, I carried out basic data cleaning on column values and deleted building data and NA information that did not contain wifi to improve readability, then summaried the building types and used the able() of knitr to create @tbl-building:
 
 
 ```{r}
-#| label: tbl-wifi
-#| tbl-cap: Sample of cleaned Free Public WiFi data
+#| label: tbl-building
+#| tbl-cap: Sample of building type data
 #| echo: false
 
-cleaned_wifi_data %>%
+building_data %>%
   head(10) %>%
   kable(
-    col.names = c("Building type", "Ward", "Ward Number"),
+    col.names = c("Building Type", "Number of Free Wifi"),
     digits = 1
   )
 
 ```
 
-From the Location and description data of Toronto free public WiFi, as of January 3, 2024, there are 194 free public WiFi location in the City of Toronto. Further breakdown shows that there are 27 free public WiFi location that are set in Arena, 74 free public WiFi location that are set in Community Recreation Centre, 17 free public WiFi location that are set in Outdoor Pool Building clinics, and  100 free public WiFi location that are set in library. Since the same wifi may cover multiple buildings, the sum of the number of public wifi corresponding to each building type is greater than the total number of public wifi in Toronto. The four building types mentioned above have the largest number of public wifi, covering almost 90% of total.
+From @tbl-final, there are 198 free public WiFi location in the City of Toronto in total. Further breakdown shows that there are  100 free public WiFi location that are set in library, 74 free public WiFi location that are set in Community Recreation Centre(CRC), 27 free public WiFi location that are set in Arena, 17 free public WiFi location that are set in Outdoor Pool Building (OPB). Since the same wifi may cover multiple buildings, the sum of the number of public wifi corresponding to each building type is greater than the total number of public wifi in Toronto. The four building types mentioned above have the largest number of public wifi, covering almost 90% of total.
 
-Library has the highest number of free public WiFi, which means that, in comparison to other types of buildings in Toronto, libraries offer the highest availability or coverage of free public WiFi services. This suggests that libraries prioritize or invest in providing accessible and free internet connectivity to the public within Toronto. Besides, Community Recreation Centre has the second most amount of free public WiFi. This information is indicative of the efforts or infrastructure investments made by Community Recreation Centres to offer accessible and free internet connectivity to the public. 
+Library has the highest number of free public WiFi, which means that, in comparison to other types of buildings in Toronto, libraries offer the highest availability or coverage of free public WiFi services. This suggests that libraries prioritize or invest in providing accessible and free internet connectivity to the public within Toronto. Besides, Community Recreation Centre has the second most amount of free public WiFi. This information is indicative of the efforts or infrastructure investments made by Toronto goverment to offer accessible and free internet connectivity to the public. 
+
 
 ## Second Dataset: 2021 Ward Profiles based on the 25-Ward model
 
-In order to deeply understand the factors affecting the distribution of public wifi in Toronto, I will study the population and income of each ward in Toronto on this basis. Therefore, the regional profile dataset (Data 2021), based on the 2021 Census data, was also included in the analysis. The dataset, published by City Planning, was last updated on January 3, 2024. The dataset contains demographic, social and economic information such as income and population for each ward.[@toronto-ward-profiles]
+In addition to building types, I also studied the population and income of each ward in Toronto as another two variables to deeply understand the factors affecting the distribution of public wifi in Toronto. Therefore, the ward profile dataset [@toronto-ward-profiles] published by City Planning based on the 2021 Census data was also included in the analysis. This dataset contains demographic, social and economic information such as income and population for each ward, and last updated on January 3, 2024.
 
-Ward profile data is stored in an Excel file with multiple tabs. The relevant data used for this analysis is included as a variable in the first TAB, the 2021 Census. Therefore, only the data from this TAB is downloaded for analysis. Further data cleansing was done to transform the data, retaining only information related to income and population levels in each ward (see @tbl-ward). Based on the Toronto Open Data Portal, the package has a CSV file, 25 ward names and numbers, which contains the mapping between ward codes and ward names. I create statistic to visualize these data, using kable() from knitr to create @tbl-ward.
+Ward profile data is stored in an Excel file with multiple tabs, and the relevant data used for this analysis is included as a variable in the first TAB, the 2021 Census. Data included population, age, race, language and median household income. Median household income is the pre-tax income a family receives from employment, investment and government support. Median income is used because it is less sensitive to very high and very low income values than the average. 
+
+This research is concerned with the impact of population and income on the distribution of free wifi, so I only choose to analyze these two variables as my research objects, and created statistic to visualize the data. we were able to get initial valid information but still need more clarity for further data analysis, so I established a new variable, "number of free wifi", to quantify the performance of free wifi in different building types. Then I used kable() from knitr to get @tbl-final:
 
 ```{r}
-#| label: tbl-ward
-#| tbl-cap: Sample of cleaned Ward of Toronto data
+#| label: tbl-final
+#| tbl-cap: Sample of final ward data
 #| echo: false
 
-cleaned_ward_data %>%
+final_data %>%
   head(10) %>%
   kable(
-    col.names = c("Population", "Income", "Ward Number"),
+    col.names = c("Population", "Income", "Ward Number", "Number of Free Wifi"),
     digits = 1
   )
 
 ```
 
-There are 25 wards in the City of Toronto. Based 2021 census data, the wards with the highest population are:
-Etobicoke-Lakeshore (Ward 3) at 139920, Spadina-Fort York (Ward 10) at 135400, and Etobicoke Centre (Ward 2) at 117200. The wards with the lowest population are: Scarborough North (Ward
-23) at 94025, Don Valley East (Ward 16) at 94335, and Don Valley West (Ward
-15) at 101025.
+From @tbl-final, there are 25 wards in total in the City of Toronto, and the wards with the highest population are: Etobicoke-Lakeshore (Ward 3) at 139920, Spadina-Fort York (Ward 10) at 135400. The wards with the lowest population are: Scarborough North (Ward 23) at 94025, Don Valley East (Ward 16) at 94335. The wards with the highest household income are: Spadina-Fort York (Ward 10) at $80730$, Toronto Centre (Ward 13) at $68965$. The wards with the lowest household income are: Humber River-Black Creek (Ward 7) at $65,458$, York South-Weston (Ward 5) at $67,964$.
 
-
-The wards with the highest household income are: Spadina-Fort York (Ward 10) at $ 80730,
-Toronto Centre (Ward 13) at $68965, and Etobicoke-Lakeshore (Ward 3) at $65575. The
-wards with the lowest household income are: Humber River-Black Creek (Ward 7) at $65,458,
-York South-Weston (Ward 5) at $67,964, and Scarborough Centre (Ward 21) at $70,624.
-
-## Variables of Interest
+It intuitively shows the social developments of 25 neighbourhoods in Toronto, including population, median income, and number of wifi, providing data support for the following study of the linear relationship between the three. It is important to note that, according to the database, more populated neighborhoods do not necessarily have more median income, which laid the foundation for our decision to separate the two variables to analyze the impact of public wifi distribution.
 
 ```{r}
 #| label: fig-interest
@@ -147,8 +148,8 @@ final_data |> ggplot(aes(x = WardNumber, y = Number_of_free_wifi)) +
     x = "Ward Number",
     y = "Number of Free Public Wifi"
   ) 
-
 ```
+@fig-interest shows the data visualization shows that the ward1, 3, and 7 have significantly more than the median number of public wifi, 12, 13, and 14 respectively, which is more than 1/3 times more than the average of 8. From this graph, we can observe that except for the ward 1, 3 and 7, the number of public wifi in other wards is basically in the same range, and there is no particularly serious shortage. This indicates that the level of public Internet accessibility strength is generally consistent across wards in Toronto.
 
 # Model {#sec-model}
 
@@ -218,7 +219,7 @@ building_data |>
 
 ```
 
-As evidenced, the amount of elite players have remained consistent over the seasons, although the big spike in the 2021-22 season may be a sign that times are changing. The bigger story here though, is the amount of players that finish in the 1.2 and 1.4 range from 2017-18 beyond. There is a dramatic spike in these productive players from before 2017-18 to that season and beyond. The graphs here show that there while the ceiling of player talent has remained the same, the floor is steadily increasing.
+Library has the highest number of free public WiFi, which means that, in comparison to other types of buildings in Toronto, libraries offer the highest availability or coverage of free public WiFi services. This suggests that libraries prioritize or invest in providing accessible and free internet connectivity to the public within Toronto. Besides, Community Recreation Centre has the second most amount of free public WiFi. This information is indicative of the efforts or infrastructure investments made by Community Recreation Centres to offer accessible and free internet connectivity to the public. 
 
 The type of building can often reflect the different needs of modern people for WiFi, and having more public WiFi coverage proves that it has a stronger degree of Internet digitization needs. 
 
@@ -247,16 +248,35 @@ population_model |>
     formula = "y ~ x"
   ) +
   labs(
-    x = "Average Income of a Ward",
+    x = "Population of a Ward",
     y = "Number of Free Wifi in a ward"
   ) +
   theme_classic()
 
 ```
+The first linear regression model, as illustrated in @fig-1, explores the relationship between the number of free public WiFi locations and the population of wards across Toronto. The scatterplot depicts the general trend of increased number of public wifi as bigger population, further emphasized by the regression line. The model indicates that as the population of a ward gets bigger, the number of free public wifi increases as well. 
 
-Model 1, as illustrated in @fig-1, displays the correlation between a child's age in months and the number of ASL words they can produce at a given age. The scatterplot depicts the general trend of vocabulary growth as a child grows in age, further emphasized by the regression line. The model indicates that as the age of a child increases, the number of vocabulary items that that child produces increases as well. The regression line allows for the prediction of future outcomes based on the known data available from the dataset. By utilizing this model, we can estimate when a child will be able to produce a certain number of ASL vocabulary words or phrases at a certain age.
+However, the coefficient for population (0.00) indicates that there is no statistically significant linear relationship between the population of a ward and the number of free public WiFi locations it hosts, as the coefficient's p-value exceeds conventional thresholds for significance. This finding suggests that the population size alone may not be a strong predictor of the availability of free public WiFi in Toronto's wards. The model's low R-squared value of 0.045 and adjusted R-squared value of 0.003 indicate that only a very small proportion of the variability in the number of free public WiFi locations can be explained by the population size of the wards. The model's RMSE (Root Mean Square Error) of 2.26 suggests that the model's predictions deviate from the actual values by an average of 2.26 free public WiFi locations.
+
+In summary, while the model attempts to assess the relationship between population and the availability of free public WiFi, its findings indicate that population alone is not a strong predictor of the number of free public WiFi locations in Toronto's wards.
+
 
 From @fig-1, we can clearly see that Etobicoke-Lakeshore (Ward 3) has the greatest population, and Spadina-Fort York (Ward 10) has the second greatest population.
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: tbl-model1
+#| tbl-cap: "A summary table of the first linear regression model"
+
+modelsummary::modelsummary(
+  list("Population of a Ward" = population_model),
+  fmt = 2
+)
+```
+
+@tbl-model1 displays the coefficients of the predictor variables of the linear regression model. All the variables included in the model have p-values less than 0.05, indicating that they have a significant impact on the permanent immigrant inflows rate. Therefore, all the variables are retained in the final model. For every 1% increase in the Employment Rate, there is a 0.04% increase in the Permanent Inflows Rate. The relationship between Employment Rate and Permanent Inflows Rate is positive, which means that as the Employment Rate increases, the Permanent Inflows Rate also tends to increase. The slope coefficient of 0.04 indicates that for every 1% increase in the Employment Rate, we can expect a 0.04% increase in the Permanent Inflows Rate, all else being equal. As the "Year" variable increases by 1, the estimated permanent immigrant inflow increases by 0.04% on average, holding other predictor variables constant. However, it is important to note that this is a correlation and does not necessarily imply causation. Other factors, such as government policies and global economic conditions, may also have an impact on Permanent Inflows Rate.
+
 
 In fact, this is similar to the distribution of free public WiFi in Toronto, but it does not exactly match. Ward 3, as the most populous area, has 13 public WiFi, which is a relatively large number in all Wards, and Ward 10 has 5, which is an insignificant number. But overall, for different Wards, a higher population slightly results in a higher amount of public WiFi.
 
@@ -289,6 +309,20 @@ income_model |>
 
 ```
 From @fig-2, we can clearly see that Spadina-Fort York (Ward 10) has the greatest average income, Toronto Centre (Ward 13) has the second greatest average income, and Etobicoke-Lakeshore (Ward 3) has the third greatest average income.
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: tbl-model2
+#| tbl-cap: "A summary table of the second linear regression model"
+
+modelsummary::modelsummary(
+  list("Average Income of a Ward" = income_model),
+  fmt = 2
+)
+```
+
+@tbl-model2 displays the coefficients of the predictor variables of the linear regression model. All the variables included in the model have p-values less than 0.05, indicating that they have a significant impact on the permanent immigrant inflows rate. Therefore, all the variables are retained in the final model. For every 1% increase in the Employment Rate, there is a 0.04% increase in the Permanent Inflows Rate. The relationship between Employment Rate and Permanent Inflows Rate is positive, which means that as the Employment Rate increases, the Permanent Inflows Rate also tends to increase. The slope coefficient of 0.04 indicates that for every 1% increase in the Employment Rate, we can expect a 0.04% increase in the Permanent Inflows Rate, all else being equal. As the "Year" variable increases by 1, the estimated permanent immigrant inflow increases by 0.04% on average, holding other predictor variables constant. However, it is important to note that this is a correlation and does not necessarily imply causation. Other factors, such as government policies and global economic conditions, may also have an impact on Permanent Inflows Rate.
 
 We can conclude that there is no observable correlation between the number of Toronto public WiFi and the average household income in a ward.
 
