@@ -85,7 +85,7 @@ new_data <-
   cleaned_wifi_data |> 
   group_by(WardNumber) |> 
   mutate(WardNumber = str_replace(WardNumber, "05", "5"))|> 
-  summarise(Numer_of_free_wifi = n())|> 
+  summarise(Number_of_free_wifi = n())|> 
   arrange(WardNumber)
   
   

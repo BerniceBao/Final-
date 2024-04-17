@@ -11,14 +11,13 @@ library(tidyverse)
 library(rstanarm)
 
 #### Read data ####
-cleaned_ward_data <- read.csv(here::here("outputs/data/cleaned_ward_data.csv"))
-cleaned_wifi_data <- read.csv(here::here("outputs/data/cleaned_wifid_data.csv"))
+final_data <- read.csv(here::here("outputs/data/final_data.csv"))
 
 ### Model data 1 ####
-goals_model <-
+wifi_model <-
   stan_glm(
-    formula = Goals_PG ~ SV_Pct + GA_Avg + Sh_Pct + PP_PG * PP_Pct,
-    data = league_data,
+    formula = Number_of_free_wifi ~ Population + Income,
+    data = final_data,
     family = gaussian(),
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
@@ -29,6 +28,7 @@ goals_model <-
 
 #### Save model ####
 saveRDS(
-  goals_model,
-  file = here::here("outputs/models/goals_model.rds")
+  wifi_model,
+  file = here::here("outputs/models/wifi_model.rds")
 )
+
