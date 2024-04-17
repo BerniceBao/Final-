@@ -1,0 +1,16 @@
+BuildingType,Number_of_free_wifi
+Library,99
+CRC,50
+Arena,11
+None,9
+"Arena,CRC,OPB",7
+"CRC,OPB",7
+"Arena,CRC",6
+"AIRB,CRC,OPB,WB",2
+"A,AIRB,CRC,OPB,WB",1
+"A,AIRB,WB",1
+"A,WB",1
+"AIRB,CB,CRC,WB",1
+"AIRB,CRC,WB",1
+"CRC,OPB,WB",1
+"CRC,School",1

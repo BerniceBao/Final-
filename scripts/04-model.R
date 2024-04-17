@@ -14,7 +14,6 @@ library(modelsummary)
 #### Read data ####
 final_data <- read.csv(here::here("outputs/data/final_data.csv"))
 
-
 #### Model data 1 ####
 wifi_model <-
   stan_glm(
@@ -53,7 +52,6 @@ income_model <-
 summary(income_model)
 modelsummary(income_model)
 
-
 #### Save model ####
 
 saveRDS(
@@ -72,4 +70,5 @@ saveRDS(
   income_model,
   file = "outputs/models/income_model.rds"
 )
+
 

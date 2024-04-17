@@ -74,12 +74,38 @@ write_csv(cleaned_ward_data, "outputs/data/cleaned_ward_data.csv")
 
 
 
+#### Create building data ####
 
+building_data <-
+  cleaned_wifi_data |> 
+  group_by(BuildingType) |> 
+  summarise(Number_of_free_wifi = n())|> 
+  arrange(desc(Number_of_free_wifi)) |>
+  mutate(BuildingType = str_replace(BuildingType, "Arena,Artificial Ice Rink Building,Community Recreation Centre,Outdoor Pool Building,Washroom Building", "A,AIRB,CRC,OPB,WB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Arena,Artificial Ice Rink Building,Washroom Building", "A,AIRB,WB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Arena,Washroom Building", "A,WB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Artificial Ice Rink Building,Changeroom Building,Community Recreation Centre,Washroom Building", "AIRB,CB,CRC,WB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Artificial Ice Rink Building,Community Recreation Centre,Washroom Building", "AIRB,CRC,WB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Community Recreation Centre,Outdoor Pool Building,Washroom Building", "CRC,OPB,WB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Community Recreation Centre,School", "CRC,School")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Artificial Ice Rink Building,Community Recreation Centre,Outdoor Pool Building,Washroom Building", "AIRB,CRC,OPB,WB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Arena,Community Recreation Centre", "Arena,CRC")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Arena,Community Recreation Centre,Outdoor Pool Building", "Arena,CRC,OPB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Community Recreation Centre,Outdoor Pool Building", "CRC,OPB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Community Recreation Centre", "CRC")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Outdoor Pool Building", "OPB")) |>
+  mutate(BuildingType = str_replace(BuildingType, "Artificial Ice Rink Building", "AIRB")) 
+
+
+head(building_data)
+
+#### Save data ####
+# write cleaned data as csv
+write_csv(building_data, "outputs/data/building_data.csv")
 
 
 #### Create final data ####
-
-# Find out building type combination counted in each ward
+# Summary building type combinations counted in each ward
 
 new_data <-
   cleaned_wifi_data |> 

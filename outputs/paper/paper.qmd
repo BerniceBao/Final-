@@ -29,15 +29,27 @@ library(dplyr)
 library(here)
 
 #### Read in the data ####
+cleaned_ward_data <-
+  read_csv(
+    file = here("outputs/data/cleaned_ward_data.csv"),
+    show_col_types = FALSE
+  )
+
 cleaned_wifi_data <-
   read_csv(
     file = here("outputs/data/cleaned_wifi_data.csv"),
     show_col_types = FALSE
   )
-#### Read in the data ####
-cleaned_ward_data <-
+
+final_data <-
   read_csv(
-    file = here("outputs/data/cleaned_ward_data.csv"),
+    file = here("outputs/data/final_data.csv"),
+    show_col_types = FALSE
+  )
+
+building_data <-
+  read_csv(
+    file = here("outputs/data/building_data.csv"),
     show_col_types = FALSE
   )
 ```
@@ -119,6 +131,24 @@ York South-Weston (Ward 5) at $67,964, and Scarborough Centre (Ward 21) at $70,6
 
 ## Variables of Interest
 
+```{r}
+#| label: fig-interest
+#| fig-cap: The number of free Wifi available in different wards in Toronto
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+
+final_data |> ggplot(aes(x = WardNumber, y = Number_of_free_wifi)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
+  labs(
+    title = "The number of free Wifi available in different wards in Toronto",
+    x = "Ward Number",
+    y = "Number of Free Public Wifi"
+  ) 
+
+```
 
 # Model {#sec-model}
 
@@ -163,9 +193,33 @@ We expect a positive relationship between average goals scored per game and powe
 
 # Results {#sec-results}
 
-## Demand
+## Building Type
 
 **Societal need for public Wi-Fi differs according to building types**
+
+While I talked about the increase of the amount of productive forwards and defensemen, here I will discuss the increase in the amount of good forwards and compare them to the amount of elite forwards. To be classified as an elite forward, usually they would need to finish the season at around a 1.4 PPG pace. Because of how hard of a feat it is to achieve a sustained 1.4 PPG pace, there are very few elite forwards in the NHL. @fig-building shows the amount of forwards that finish in multiple PPG ranges.
+
+```{r}
+#| label: fig-building
+#| fig-cap: The number of free Wifi in Toronto by building type
+#| echo: false
+#| warning: false
+
+library(tidyverse)
+
+building_data |> 
+  ggplot(aes(x = BuildingType, y = Number_of_free_wifi)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, hjust=1)) +
+  labs(
+    title = "The number of free Wifi in Toronto by building type",
+    x = "Building Types",
+    y = "Number of Free Public Wifi"
+  ) 
+
+```
+
+As evidenced, the amount of elite players have remained consistent over the seasons, although the big spike in the 2021-22 season may be a sign that times are changing. The bigger story here though, is the amount of players that finish in the 1.2 and 1.4 range from 2017-18 beyond. There is a dramatic spike in these productive players from before 2017-18 to that season and beyond. The graphs here show that there while the ceiling of player talent has remained the same, the floor is steadily increasing.
 
 The type of building can often reflect the different needs of modern people for WiFi, and having more public WiFi coverage proves that it has a stronger degree of Internet digitization needs. 
 
@@ -201,7 +255,7 @@ population_model |>
 
 ```
 
-Model 1, as illustrated in @fig-prodwordsmodel, displays the correlation between a child's age in months and the number of ASL words they can produce at a given age. The scatterplot depicts the general trend of vocabulary growth as a child grows in age, further emphasized by the regression line. The model indicates that as the age of a child increases, the number of vocabulary items that that child produces increases as well. The regression line allows for the prediction of future outcomes based on the known data available from the dataset. By utilizing this model, we can estimate when a child will be able to produce a certain number of ASL vocabulary words or phrases at a certain age.
+Model 1, as illustrated in @fig-1, displays the correlation between a child's age in months and the number of ASL words they can produce at a given age. The scatterplot depicts the general trend of vocabulary growth as a child grows in age, further emphasized by the regression line. The model indicates that as the age of a child increases, the number of vocabulary items that that child produces increases as well. The regression line allows for the prediction of future outcomes based on the known data available from the dataset. By utilizing this model, we can estimate when a child will be able to produce a certain number of ASL vocabulary words or phrases at a certain age.
 
 From @fig-1, we can clearly see that Etobicoke-Lakeshore (Ward 3) has the greatest population, and Spadina-Fort York (Ward 10) has the second greatest population.
 

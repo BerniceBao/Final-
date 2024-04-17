@@ -34,5 +34,5 @@ simulated_data <-
 head(simulated_data)
 
 #### Save data ####
-write_csv(simulated_data,"outputs/data/simulated_data.csv")
+write_csv(simulated_data,"inputs/data/simulated_data.csv")
 
