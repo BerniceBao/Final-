@@ -128,6 +128,8 @@ York South-Weston (Ward 5) at $67,964, and Scarborough Centre (Ward 21) at $70,6
 
 # IMPORT MODEL FROM OUTPUTS FOLDER
 wifi_model <- readRDS(here::here("outputs/models/wifi_model.rds"))
+population_model <- readRDS(here::here("outputs/models/population_model.rds"))
+income_model <- readRDS(here::here("outputs/models/income_model.rds"))
 
 ```
 
@@ -181,7 +183,7 @@ For example, libraries have embraced technology, expanding their offerings beyon
 #| echo: false
 #| warning: false
 
-wifi_model |>
+population_model |>
   ggplot(aes(x = Population, y = Number_of_free_wifi)) +
   geom_point(alpha = 0.5) +
   geom_smooth(
@@ -216,7 +218,7 @@ In fact, this is similar to the distribution of free public WiFi in Toronto, but
 #| echo: false
 #| warning: false
 
-wifi_model |>
+income_model |>
   ggplot(aes(x = Income, y = Number_of_free_wifi)) +
   geom_point(alpha = 0.5) +
   geom_smooth(

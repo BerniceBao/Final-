@@ -46,7 +46,7 @@ modelsummary(population_model)
 #### Linear Model data 3 ####
 income_model <-
   lm(
-    Number_of_free_wifi ~ Population,
+    Number_of_free_wifi ~ Income,
     data = final_data,
   )
 
@@ -72,3 +72,4 @@ saveRDS(
   income_model,
   file = "outputs/models/income_model.rds"
 )
+
