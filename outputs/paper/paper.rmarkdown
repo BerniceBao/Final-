@@ -3,7 +3,8 @@ title: "Urban Connectivity Dynamics: Analyzing Free Public WiFi Distribution in 
 subtitle: "By Building Typology, Population, and Socioeconomic Indicators"
 author: 
   - Bernice Bao
-thanks: "Code and data are available at: <https://github.com/BerniceBao/Free-Public-WiFi-Distribution-in-Toronto>."
+thanks: "Code and data are available at: <https://github.com/BerniceBao/Free-Public-WiFi-Distribution-in-Toronto>
+ <https://open.toronto.ca/dataset/city-of-toronto-free-public-wifi/>, and <https://open.toronto.ca/dataset/ward-profiles-25-ward-model/>."
 date: 15 April 2024
 date-format: long
 abstract: "In the era of increasing digital dependence, understanding the intricacies of urban internet connectivity is pivotal for fostering an effective and technologically equitable society. Public WiFi is a vital tool in modern society, offering internet access and supporting economic development, education, and social connections. In response to the increasing importance of internet connectivity in contemporary urban life, I investigate the distribution of free public WiFi in Toronto. This paper aims to provide key statistics on the distribution of public WiFi in Toronto and analyze the impact of building types, demographics, and economic influences on its distribution to gain as comprehensive a picture as possible of the role and impact of public WiFi in our lives."
@@ -43,6 +44,7 @@ cleaned_ward_data <-
 ```
 
 
+
 # Introduction {#sec-intro}
 
 In an era characterized by an ever-deepening reliance on digital technologies, the intricate tapestry of urban internet connectivity is emerging as a pivotal force in the transformation of our societal fabric. Countries globally are acknowledging internet access as an indispensable tool for active participation in contemporary democratic societies. In Canada, the Canadian Radio-television and Telecommunications Commission (CRTC) has recognized that "broadband internet access services are crucial to Canada’s economic, social, democratic, and cultural fabric."(@citiesfordigitalrights-toronto-wifi) As a university student navigating the complexities of contemporary living, the significance of understanding these dynamics cannot be overstated. We are acutely aware of the transformative potential that connectivity holds.
@@ -68,6 +70,7 @@ The data I mainly used to generate the visualizations in this paper is City of T
 The data used for analysis in this article is as of January 3, 2024. According to the data characteristics described on the portal, this data should include information such as address, building type, building name, postal code, whether there is public wifi, etc. Through systematic analysis, it is found that only building type is the main subject variable that can be used to study the influencing factors of distribution. In order to quickly extract available data, only columns with reasonable data are retained during the data cleaning process (see Table 1). Basic data cleaning of column values to shorten the description of different types of clinics and improve readability. I create a statistic on the basis of monthly groups, using kable() from knitr to create @tbl-wifi.
 
 
+
 ```{r}
 #| label: tbl-wifi
 #| tbl-cap: Sample of cleaned Free Public WiFi data
@@ -82,6 +85,7 @@ cleaned_wifi_data %>%
 
 ```
 
+
 From the Location and description data of Toronto free public WiFi, as of January 3, 2024, there are 194 free public WiFi location in the City of Toronto. Further breakdown shows that there are 27 free public WiFi location that are set in Arena, 74 free public WiFi location that are set in Community Recreation Centre, 17 free public WiFi location that are set in Outdoor Pool Building clinics, and  100 free public WiFi location that are set in library. Since the same wifi may cover multiple buildings, the sum of the number of public wifi corresponding to each building type is greater than the total number of public wifi in Toronto. The four building types mentioned above have the largest number of public wifi, covering almost 90% of total.
 
 Library has the highest number of free public WiFi, which means that, in comparison to other types of buildings in Toronto, libraries offer the highest availability or coverage of free public WiFi services. This suggests that libraries prioritize or invest in providing accessible and free internet connectivity to the public within Toronto. Besides, Community Recreation Centre has the second most amount of free public WiFi. This information is indicative of the efforts or infrastructure investments made by Community Recreation Centres to offer accessible and free internet connectivity to the public. 
@@ -91,6 +95,7 @@ Library has the highest number of free public WiFi, which means that, in compari
 In order to deeply understand the factors affecting the distribution of public wifi in Toronto, I will study the population and income of each ward in Toronto on this basis. Therefore, the regional profile dataset (Data 2021), based on the 2021 Census data, was also included in the analysis. The dataset, published by City Planning, was last updated on January 3, 2024. The dataset contains demographic, social and economic information such as income and population for each ward.[@toronto-ward-profiles]
 
 Ward profile data is stored in an Excel file with multiple tabs. The relevant data used for this analysis is included as a variable in the first TAB, the 2021 Census. Therefore, only the data from this TAB is downloaded for analysis. Further data cleansing was done to transform the data, retaining only information related to income and population levels in each ward (see @tbl-ward). Based on the Toronto Open Data Portal, the package has a CSV file, 25 ward names and numbers, which contains the mapping between ward codes and ward names. I create statistic to visualize these data, using kable() from knitr to create @tbl-ward.
+
 
 ```{r}
 #| label: tbl-ward
@@ -105,6 +110,7 @@ cleaned_ward_data %>%
   )
 
 ```
+
 
 There are 25 wards in the City of Toronto. Based 2021 census data, the wards with the highest population are:
 Etobicoke-Lakeshore (Ward 3) at 139920, Spadina-Fort York (Ward 10) at 135400, and Etobicoke Centre (Ward 2) at 117200. The wards with the lowest population are: Scarborough North (Ward
@@ -121,15 +127,6 @@ York South-Weston (Ward 5) at $67,964, and Scarborough Centre (Ward 21) at $70,6
 
 
 # Model {#sec-model}
-
-
-```{r}
-#| include: false
-
-# IMPORT MODEL FROM OUTPUTS FOLDER
-wifi_model <- readRDS(here::here("outputs/models/wifi_model.rds"))
-
-```
 
 The goal of my modelling strategy is twofold. Firstly, I want to analyze to what effect power play opportunities, power play effectiveness, save percentage, goals against average and shooting percentages all have on average goals scored per game. Secondly, I want to use these results to predict the average goals scored per game for the next season.
 
@@ -157,6 +154,54 @@ We run the model in `R` [@citeR] using the `rstanarm` package of [@citestan]. We
 
 We expect a positive relationship between average goals scored per game and power play opportunities, power play percentage, goals against average, and shooting percentage. The higher those four variables are, the more goals there should be. In particular, there should also be a negative relationship between goals scored and save percentage. With a lower save percentage, there are less saves that are occuring which means there should be more goals. Additionally, the two power play variables are interacted with eachother, since they are directly related to one another. There cannot be a power play percentage without a power play opportunity.
 
+## Model Prediction
+Taking the differences in averages from the 2021-2022 season and the 2022-2023 season, I will create a test dataset for the 2023-2024 season by adding those differences onto the averages from the 2022-2023 season and use the model with this test dataset to predict the average goals scored per game for the 2023-2024 season. @tbl-4 is the resulting mock 2023-2024 season averages data.
+
+```{r}
+#| echo: false
+#| warning: false
+
+test_league <- tibble(
+  Season = c(
+    "2023-24"
+    ),
+  Goals_PG = c(
+    3.22
+  ),
+  PP_PG = c(
+    3.25
+  ),
+  PP_Pct = c(
+    22.01
+  ),
+  SA = c(
+    30.8
+  ),
+  SV_Pct = c(
+    0.901
+  ),
+  GA_Avg = c(
+    3.02
+  ),
+  Sh_Pct = c(
+    10.33
+  )
+)
+
+prediction <- predict(wifi_model, newdata = test_league)
+```
+
+```{r}
+#| label: tbl-4
+#| tbl-cap: A mock league averages dataset for the 2023-2024 NHL season.
+#| echo: false
+#| warning: false
+
+kable(test_league, padding = 5)
+```
+
+
+Using the mock data alongside the model, the predicted average goals per game for the 2023-2024 season is **3.21**.
 
 
 # Results {#sec-results}
@@ -175,31 +220,25 @@ For example, libraries have embraced technology, expanding their offerings beyon
 
 **Higher population density correlates with increased distribution of free public WiFi**
 
+
 ```{r}
 #| label: fig-1
-#| fig-cap: Linear regression model of the number of produced ASL words by the range of children's ages during their early developmental years.
+#| fig-cap: Relationship between Population of each Ward and Amount of Free Public WiFi Location
 #| echo: false
 #| warning: false
+#| message: false
 
-wifi_model |>
-  ggplot(aes(x = Population, y = Number_of_free_wifi)) +
-  geom_point(alpha = 0.5) +
-  geom_smooth(
-    method = "lm",
-    se = TRUE,
-    color = "black",
-    linetype = "dashed",
-    formula = "y ~ x"
-  ) +
-  labs(
-    x = "Average Income of a Ward",
-    y = "Number of Free Wifi in a ward"
-  ) +
-  theme_classic()
+analysis_data_1 <- read_csv(here::here("outputs/data/cleaned_ward_data.csv"))
+
+analysis_data_1 |> 
+  ggplot(aes(x = Population, y = WardNumber)) +
+  geom_point(alpha = 0.8) +
+  theme_minimal() +
+  labs(x = "Population of each Ward",
+       y = "Ward Number")
 
 ```
 
-Model 1, as illustrated in @fig-prodwordsmodel, displays the correlation between a child's age in months and the number of ASL words they can produce at a given age. The scatterplot depicts the general trend of vocabulary growth as a child grows in age, further emphasized by the regression line. The model indicates that as the age of a child increases, the number of vocabulary items that that child produces increases as well. The regression line allows for the prediction of future outcomes based on the known data available from the dataset. By utilizing this model, we can estimate when a child will be able to produce a certain number of ASL vocabulary words or phrases at a certain age.
 
 From @fig-1, we can clearly see that Etobicoke-Lakeshore (Ward 3) has the greatest population, and Spadina-Fort York (Ward 10) has the second greatest population.
 
@@ -210,29 +249,27 @@ In fact, this is similar to the distribution of free public WiFi in Toronto, but
 **Income levels have limited influence on availability of free public Wi-Fi**
 
 
+
 ```{r}
 #| label: fig-2
-#| fig-cap: Linear regression model of the number of produced ASL words by the range of children's ages during their early developmental years.
+#| fig-cap: Relationship between Income of each Ward and Amount of Free Public WiFi Location
 #| echo: false
 #| warning: false
+#| message: false
 
-wifi_model |>
-  ggplot(aes(x = Income, y = Number_of_free_wifi)) +
-  geom_point(alpha = 0.5) +
-  geom_smooth(
-    method = "lm",
-    se = TRUE,
-    color = "black",
-    linetype = "dashed",
-    formula = "y ~ x"
-  ) +
-  labs(
-    x = "Average Income of a Ward",
-    y = "Number of Free Wifi in a ward"
-  ) +
-  theme_classic()
+
+analysis_data_1 <- read_csv(here::here("outputs/data/cleaned_ward_data.csv"))
+
+analysis_data_1 |> 
+  ggplot(aes(x = Income, y = WardNumber)) +
+  geom_point(alpha = 0.8) +
+  theme_minimal() +
+  labs(x = "Income of each Ward",
+       y = "Ward Number")
 
 ```
+
+
 From @fig-2, we can clearly see that Spadina-Fort York (Ward 10) has the greatest average income, Toronto Centre (Ward 13) has the second greatest average income, and Etobicoke-Lakeshore (Ward 3) has the third greatest average income.
 
 We can conclude that there is no observable correlation between the number of Toronto public WiFi and the average household income in a ward.
@@ -253,3 +290,4 @@ Furthermore, our data analysis indicates that while population size does exert a
 \newpage
 
 # References
+

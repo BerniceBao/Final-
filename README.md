@@ -4,9 +4,10 @@
 
 In the era of increasing digital dependence, understanding the intricacies of urban internet connectivity is pivotal for fostering an effective and technologically equitable society. Public WiFi is a vital tool in modern society, offering internet access and supporting economic development, education, and social connections. In response to the increasing importance of internet connectivity in contemporary urban life, I investigate the distribution of free public WiFi in Toronto. This paper aims to provide key statistics on the distribution of public WiFi in Toronto and analyze the impact of building types, demographics, and economic influences on its distribution to gain as comprehensive a picture as possible of the role and impact of public WiFi in our lives.
 
+
 ## Overview
 
-This repo contains each step that was conducted in order to analyse City of Toronto Free Public WiFi, including all the steps generated ideas and the final paper that was written.
+This repo contains each step that was conducted in order to analyse City of Toronto Free Public WiFi, including all the steps generated ideas and the final paper that was written. The data here  downloaded from <https://open.toronto.ca/dataset/city-of-toronto-free-public-wifi/> and <https://open.toronto.ca/dataset/ward-profiles-25-ward-model/>
 
 **Statement on LLM usage: No Large Language Models (LLM's) were used for any aspect for the production of this paper.**
 
