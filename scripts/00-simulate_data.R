@@ -9,18 +9,11 @@
 
 #### Workspace setup ####
 library(tidyverse)
-install.packages("opendatatoronto")
-install.packages("knitr")
-
 library(knitr)
 library(janitor)
 library(lubridate)
 library(opendatatoronto)
 library(tidyverse)
-
-citation() # Get the citation information for R
-citation("ggplot2") # Get citation information for a package
-
 
 #### Simulate data ####
 set.seed(85)

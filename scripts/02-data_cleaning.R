@@ -52,11 +52,13 @@ cleaned_ward_data <-
 # move the variables to the correct position
 
 cleaned_ward_data <- data.frame(cleaned_ward_data)
-colnames(cleaned_ward_data ) <- cleaned_ward_data[1,]
+colnames(cleaned_ward_data) <- cleaned_ward_data[1,]
 cleaned_ward_data <- cleaned_ward_data[-1,]
 rownames(cleaned_ward_data) <- 1:25
 
-cleaned_ward_data <- cleaned_ward_data |> mutate(WardNumber = c(1:25))
+cleaned_ward_data <- cleaned_ward_data |> mutate(WardNumber = c(1:25)) 
+
+cleaned_ward_data$WardNumber <- as.character(cleaned_ward_data$WardNumber)
 
 # rename the variables
 cleaned_ward_data <-
@@ -65,7 +67,43 @@ cleaned_ward_data <-
 
 head(cleaned_ward_data)
 
+
 #### Save data ####
 # write cleaned data as csv
 write_csv(cleaned_ward_data, "outputs/data/cleaned_ward_data.csv")
+
+
+
+
+
+
+#### Create final data ####
+
+# Find out building type combination counted in each ward
+
+new_data <-
+  cleaned_wifi_data |> 
+  group_by(WardNumber) |> 
+  mutate(WardNumber = str_replace(WardNumber, "05", "5"))|> 
+  summarise(Numer_of_free_wifi = n()) |> 
+  arrange(WardNumber)
+  
+
+head(new_data)
+# Add new variables of building type combination counted in each ward
+
+final_data <- full_join(x= cleaned_ward_data, y= new_data, by="WardNumber")
+
+final_data <-
+  cleaned_wifi_data |>
+  filter(`City of Toronto Profiles` == "Total - Age" | `City of Toronto Profiles` == "Total - Household total income groups in 2020 for private households - 25% sample data")|> # filter on the population and income
+  select(`City of Toronto Profiles`, ...3, ...4, ...5, ...6, ...7, ...8, ...9, ...10, ...11, ...12, ...13, ...14, ...15, ...16, ...17, ...18, ...19, ...20, ...21, ...22, ...23, ...24, ...25, ...26, ...27) |># only select the relevant columns
+  t()
+
+head(final_data)
+
+#### Save data ####
+# write cleaned data as csv
+write_csv(final_data, "outputs/data/final_data.csv")
+
 
