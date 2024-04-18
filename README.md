@@ -1,4 +1,4 @@
-# City of Toronto Free Public WiFi
+# Free Public WiFi Distribution in Toronto
 
 ## Abstract
 
