@@ -2,8 +2,7 @@
 
 ## Abstract
 
-Public WiFi is a vital tool in modern society, offering internet access and supporting economic development, education, and social connections. In response to the increasing importance of public free wifi in contemporary urban life, this paper investigates the distribution and influencing factors of free public WiFi in Toronto. Drawing on datasets from Open Data Toronto, the paper focuses on the association between the building types of the place with public wifi, population and income of each ward in Toronto and number of  Toronto public free wifi, and aims to shed light on the correlation between free public WiFi distribution and building types, population, and income, and put forward relevent suggestions for the future development. Understanding these findings is crucial for policymakers, urban planners, and community advocates developing digital public Internet and foster a more equitable society.
-
+Public WiFi is a vital tool for modern society, supporting economic, social, and educational development through free internet access. This study examines the influencing factors of free public WiFi distribution in Toronto using datasets from Open Data Toronto. Specifically, it investigates the relationship between building types, population, median income of each ward in Toronto, and the number of public free WiFi hotspots. Linear regression models are utilized to analyze these correlations and offer insights into the current distribution of public WiFi, including potential benefits and disadvantages. Findings indicate that areas with higher population densities or greater concentrations of public amenities tend to have more public WiFi installations, while median income does not significantly influence public WiFi deployment. Understanding these findings is crucial for policymakers and urban planners to ensure the equitable development of digital public Internet infrastructure.
 
 ## Overview
 

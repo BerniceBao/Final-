@@ -1,12 +1,12 @@
 ---
-title: "Urban Connectivity Dynamics: Analyzing Free Public WiFi Distribution in Toronto"
-subtitle: "By Building Typology, Population, and Socioeconomic Indicators"
+title: "Urban Digital Development: A Study of Public Free WiFi Distribution in Toronto"
+subtitle: "Insights from Building Type, Population and Income"
 author: 
   - Bernice Bao
 thanks: "Code and data are available at: <https://github.com/BerniceBao/Free-Public-WiFi-Distribution-in-Toronto>."
 date: 15 April 2024
 date-format: long
-abstract: "Public WiFi is a vital tool in modern society, offering no-cost internet access and supporting economic, social and educational development. In response to the increasing importance of public free wifi in contemporary urban life, this paper investigates the distribution and influencing factors of free public WiFi in Toronto. Drawing on datasets from Open Data Toronto, the paper focuses on the association between the building types of the place with public wifi, population and income of each ward in Toronto and number of  Toronto public free wifi by creating linear regression models, aimed to shed light on the correlation between free public WiFi distribution and building types, population, and income, and put forward relevent suggestions for the future development. Understanding these findings is crucial for policymakers, urban planners, and community advocates developing digital public Internet and foster a more equitable society."
+abstract: "Public WiFi is a vital tool for modern society, supporting economic, social, and educational development through free internet access. This study examines the influencing factors of free public WiFi distribution in Toronto using datasets from Open Data Toronto. Specifically, it investigates the relationship between building types, population, median income of each ward in Toronto, and the number of public free WiFi hotspots. Linear regression models are utilized to analyze these correlations and offer insights into the current distribution of public WiFi, including potential benefits and disadvantages. Findings indicate that areas with higher population densities or greater concentrations of public amenities tend to have more public WiFi installations, while median income does not significantly influence public WiFi deployment. Understanding these findings is crucial for policymakers and urban planners to ensure the equitable development of digital public Internet infrastructure."
 format: pdf
 fig-pos: "H"
 toc: true
@@ -60,19 +60,20 @@ building_data <-
 
 # Introduction {#sec-intro}
 
-In an era characterized by an ever-deepening reliance on digital technologies, the intricate tapestry of urban internet connectivity is emerging as a pivotal force in the transformation of our societal fabric. Countries globally are acknowledging internet access as an indispensable tool for active participation in contemporary democratic societies. In Canada, the Canadian Radio-television and Telecommunications Commission (CRTC) has recognized that "broadband internet access services are crucial to Canada’s economic, social, democratic, and cultural fabric."(@citiesfordigitalrights-toronto-wifi) As a university student navigating the complexities of contemporary living, the significance of understanding these dynamics cannot be overstated. We are acutely aware of the transformative potential that connectivity holds.
+In the digital age, access to the internet has become increasingly essential for participation in economic, social, and educational activities. With the continuous progress of science and technology, public WiFi, which can be easily and wirelessly connected to the Internet at a low cost, is gradually improving and promoting to all corners of the world. Nowadays, public free WiFi has emerged as a crucial tool in bridging the digital divide and promoting equitable access to online resources. It fosters internet accessibility, enabling people to stay connected without constraints. It also improve the access to information, job searching, and remote work opportunities are further facilitated, enhancing the overall quality of life. In emergencies, public WiFi could also serve as a crucial communication lifeline, demonstrating its indispensable role in connecting people and providing access to vital services.(@broadbandsearch-public-wifi)  In Canada, the Canadian Radio-television and Telecommunications Commission (CRTC) has recognized that "broadband internet access services are crucial to Canada’s economic, social, democratic, and cultural fabric."(@citiesfordigitalrights-toronto-wifi)
 
-Public WiFi, often taken for granted in our daily lives, emerges as a vital tool shaping the contours of a technologically inclusive society. It plays a pivotal role in modern society, offering a myriad of benefits to individuals.  Beyond providing a cost-effective alternative to cellular data, it fosters internet accessibility, enabling people to stay connected without constraints.  This flexibility and mobility are particularly advantageous for students, travelers, and those on a budget, allowing them to work, study, or communicate from diverse locations.  Moreover, public WiFi contributes to social inclusion, bridging the digital divide and ensuring that even those without home internet access can engage in online activities.  Access to information, job searching, and remote work opportunities are further facilitated, enhancing the overall quality of life.  In emergencies, public WiFi serves as a crucial communication lifeline, demonstrating its indispensable role in connecting people and providing access to vital services.(@broadbandsearch-public-wifi)                  
+Recognizing its significance, this paper embarks on an exploration of the distribution of free public WiFi in Toronto, and delves into its potential influencing factors, aiming to shed light on the dynamics shaping its accessibility across different urban areas. By examining the relationship between building types, population demographics, median income, and the number of public free WiFi hotspots in different wards of Toronto, this study seeks to uncover the underlying factors driving the spatial distribution of public WiFi infrastructure. Utilizing datasets sourced from Open Data Toronto, our analysis employs rigorous statistical methods, including linear regression models, to explore the correlations between various socio-economic variables and the availability of public WiFi. Through this approach, we aim to offer insights into the benefits and potential drawbacks of current public WiFi distribution strategies, with a particular focus on understanding the role of population density and the presence of public amenities in driving WiFi deployment. By elucidating these factors, we aim to provide valuable analysis for policymakers and urban planners tasked with ensuring the equitable provision of digital public Internet infrastructure.
 
-Beyond the conveniences of internet access, it serves as a linchpin fostering economic development, facilitating education, and fortifying social connections. The present study, anchored in the evolving landscape of Toronto, endeavors to unravel the mysteries surrounding the distribution of public WiFi. This paper embarks on a compelling exploration of the distribution of free public WiFi in Toronto, recognizing it as not merely a technological amenity but a cornerstone of our modern existence. By examining the impact of various factors, such as building types, demographic patterns, and economic influences, this research seeks to paint a comprehensive portrait of the role and impact of public WiFi in our lives, providing readers with a lens to comprehend the symbiotic relationship between technology and urban living.
+Our findings reveal intriguing patterns regarding the relationship between population density, public amenity concentration, and the presence of public WiFi installations. Notably, areas with higher population densities or greater concentrations of public amenities tend to exhibit a higher prevalence of public WiFi hotspots.       However, our analysis also suggests that median income levels do not significantly influence the deployment of public WiFi infrastructure. These findings underscore the importance of considering diverse socio-economic factors in shaping strategies for the equitable development of digital public Internet infrastructure in urban areas. This paper contributes to our understanding of the factors influencing the distribution of public WiFi in urban settings. By elucidating the relationship between socio-economic variables and public WiFi deployment, our study offers valuable insights that can inform the development of more equitable and inclusive digital infrastructure policies, and also provide readers with a lens to comprehend the symbiotic relationship between technology and urban living.
 
-This research is divided into three main parts: `Introduction`(@sec-intro), `Data`(@sec-data), `Model` (@sec-model), `Results` (@sec-results), and `Discussion` (@sec-disc). Commencing with the Data section, a meticulous exposition ensues, delineating the origin of datasets garnered from the OpenDataToronto Library and expounding upon the procedural rigors applied for data refinement and analysis. The conclusion part shows what I found during the analysis, while goes deeper into those findings, and finally wraps up the main discoveries from this paper about public free WiFi in Toronto.
+
+This research is divided into five main parts: `Introduction`(@sec-intro), `Data`(@sec-data), `Model` (@sec-model), `Results` (@sec-results), and `Discussion` (@sec-disc). @sec-data provides a detailed explanation of the two databases used for analysis, data processing, including visualization of variables of interest. @sec-model proposes a simple linear regression model to be applied to our two variables of population and income separately. @sec-results presents the findings from the analysis, and @sec-disc takes a deeper look at those findings, concluding with a summary of all of the analysis in this paper on the distribution of public free WiFi in Toronto and a discussion of bias and next steps.
 
 
 
 # Data {#sec-data}
 
-In this section, I'll explore the R-based data collection process and generate the visualizations in the RStudio environment [@citeR;@citeRStudio]. All the datasets studied in this paper come from "Open Data Toronto" [@citeODT], a data source allowing researchers and policymakers to access and utilize the data which can be downloaded for free from its website and GitHub repository, in order to finish various statistical analyses, research studies, and decision-making processes.  The two main datasets used in this paper are @toronto_wifi_dataset, which provides descriptive data such as the location and building type of Toronto free public wifi, and @toronto_ward_profiles, which contains economic, population and other social information of all 25 wards in Toronto collected in 2021.
+In this section, We explore the R-based data collection process and generate the visualizations in the RStudio environment [@citeR;@citeRStudio]. All the datasets studied in this paper come from "Open Data Toronto" [@citeODT], a data source allowing researchers and policymakers to access and utilize the data which can be downloaded for free from its website and GitHub repository, in order to finish various statistical analyses, research studies, and decision-making processes.  The two main datasets used in this paper are @toronto_wifi_dataset, which provides descriptive data such as the location and building type of Toronto free public WiFi, and @toronto_ward_profiles, which contain economic, population and other social information of all 25 wards in Toronto collected in 2021.
 
 The analysis benefits from additional functionalities harnessed from various R packages such as `tidyverse` [@citeTidyverse] installed to gain access to other important R packages, `here` [@citeHere] created a path to specific saved files, `readr` [@citeReadr] read and imported data, `ggplot2` [@citeGgplot2] made the data visualizations, `knitr` [@citeKnitr] and `dplyr` [@citeDplyr] manipulated and cleaned data, and `modelsummary` [@citemodelSummary] to create summary tables. Further insights into the deployment of these packages will be expounded upon in the ensuing subsections.
 
@@ -80,11 +81,11 @@ The analysis benefits from additional functionalities harnessed from various R p
 
 ## First Dataset: Location and description data of Toronto free public WiFi
 
-@toronto_wifi_dataset, the dataset I primarily use to generate visualizations is an open source tool designed to be publicly available and to encourage the development of valuable insights. It published by Toronto's Department of Information Technology, collects location information and descriptive data for free public WiFi locations in the City of Toronto and is updated monthly, with the latest update on April 15, 2024. These data include address, building type, building name, public name, zip code, whether there is public wifi, owner, ward, ward number, and other geographical information.
+The dataset @toronto_wifi_dataset, is an open-source resource provided by Toronto's Department of Information Technology.  It collects location information and descriptive data for free public WiFi locations in the City of Toronto and is regularly updated, with the latest update on April 15, 2024.  This dataset includes various details such as address, building type, building name, zip code, and ward information.
 
-Among all statistical data about free public wifi, our analysis is particularly interested in "building type", "ward" and "ward number", which are considered as the main subject variables of our study. Analyzing public WiFi distribution by building type allows us to understand where internet access is concentrated and which locations may be underserved. This insight can inform decisions about where to expand infrastructure, and how to ensure equitable access to digital resources across different communities. Besides, ward and ward number belong to the nature of the distribution of public wifi in Toronto itself, and do not take into account the influencing factors to be explored, but provide a new idea that can be connected with more social information associated with ward to explore more influential factors that can be studied.
+Of particular interest in our analysis are the variables "building type," "ward," and "ward number," which serve as the main focus of our study.  Analyzing public WiFi distribution by building type helps us identify areas with concentrated internet access and those that may require additional infrastructure development to ensure equitable access across communities.  Similarly, examining ward and ward number distributions provides insights into the natural distribution of public WiFi in Toronto, laying the groundwork for further exploration of associated social factors.
 
-As my research mainly concentrated on the influence of building type and the layout of public WiFi in Toronto, I did the data cleaning process by retaining only the columns related to building type, ward, and ward number to efficiently extract relevant data. Additionally, I performed basic data cleaning on column values, removing non-WiFi-related building data and NA information to enhance clarity. Subsequently, I knitr to generate the @tbl-wifi table for analysis:
+To streamline our analysis, we conducted data cleaning by retaining only relevant columns related to building type, ward, and ward number.  Additionally, we performed basic data cleaning procedures to remove non-WiFi-related building data and NA values, enhancing the clarity and accuracy of our analysis.  Subsequently, we utilized knitr to generate the @tbl-wifi table for further analysis:
 ```{r}
 #| label: tbl-wifi
 #| tbl-cap: Sample of cleaned wifi data
@@ -98,7 +99,7 @@ cleaned_wifi_data %>%
   )
 
 ```
-@tbl-wifi shows reoughly the building types, ward and ward number of all buildings with public wifi in Toronto. To facilitate a clearer understanding of the distribution of public WiFi across different building types, I grouped the data by building type and summarized the number of free WiFi hotspots associated with each category showed in @tbl-building. 
+@tbl-wifi shows reoughly the building types, ward and ward number of all buildings with public WiFi in Toronto. To facilitate a clearer understanding of the distribution of public WiFi across different building types, we grouped the data by building type and summarized the number of free WiFi hotspots associated with each category showed in @tbl-building. 
 
 ```{r}
 #| label: tbl-building
@@ -115,17 +116,16 @@ building_data %>%
 ```
 This process involved grouping the data by building type and calculating the total count of free WiFi instances within each category.  By organizing the data in this manner, it aimed to provide an overview of the prevalence of public WiFi across various types of buildings, including arenas, libraries, community recreation centers (CRC), Outdoor Pool Building (OPB), Artificial Ice Rink Building (AIRB), and Washroom Building (WB).
 
-From @tbl-building, we know that there are 198 free public WiFi location in the City of Toronto in total. Further breakdown shows that there are  100 free public WiFi location that are set in library, 74 free public WiFi location that are set in Community Recreation Centre(CRC), 27 free public WiFi location that are set in Arena, 17 free public WiFi location that are set in Outdoor Pool Building (OPB). Since the same wifi may cover multiple buildings, the sum of the number of public wifi corresponding to each building type is greater than the total number of public wifi in Toronto. The four building types mentioned above have the largest number of public wifi, covering almost 90% of total. 
-
+From @tbl-building, we know that there are 198 free public WiFi location in the City of Toronto in total. Further breakdown shows that there are  100 free public WiFi location that are set in library, 74 free public WiFi location that are set in Community Recreation Centre(CRC), 27 free public WiFi location that are set in Arena, 17 free public WiFi location that are set in Outdoor Pool Building (OPB). Since the same WiFi may cover multiple buildings, the sum of the number of public WiFi corresponding to each building type is greater than the total number of public WiFi in Toronto. The four building types mentioned above have the largest number of public WiFi, covering almost 90% of total. 
+\newpage
 
 ## Second Dataset: 2021 Ward Profiles based on the 25-Ward model
 
-In addition to building types, I also studied the "population" and "income" of each ward in Toronto as another two variables to deeply understand the factors affecting the distribution of public wifi in Toronto. In general, demographic characteristics such as age, household size, and cultural background can influence the demand for and usage patterns of public WiFi, and more people always mean more demand for the Internet. In addition, areas with lower median incomes may face greater barriers to internet access due to affordability issues or lack of infrastructure investment.
+We expanded our analysis beyond building types to include population and income data for each ward in Toronto.  Demographic factors such as age, household size, and cultural background can influence the demand for and usage patterns of public WiFi, with higher population densities generally indicating greater internet demand.  Additionally, areas with lower median incomes may face barriers to internet access due to affordability issues or insufficient infrastructure investment.
 
-Therefore, the ward profile dataset [@toronto-ward-profiles] published by City Planning based on the 2021 Census data was also included in the analysis. This dataset contains demographic, social and economic information such as income and population for each ward, and last updated on January 3, 2024. Data included population, age, race, language and median household income. Median household income is the pre-tax income a family receives from employment, investment and government support. Median income is used because it is less sensitive to very high and very low income values than the average. 
+To incorporate this data, we utilized the ward profile dataset [@toronto-ward-profiles] published by City Planning, based on 2021 Census data and last updated on January 3, 2024.  This dataset includes demographic, social, and economic information such as population, age, race, language, and median household income.  Median household income, representing pre-tax income a family receives from employment, investment and government support. Median income is used in our research because it is less sensitive to very high and very low income values than the average. 
 
-This research is concerned with the impact of population and income on the distribution of free wifi, so I only choose to analyze these two variables as my research objects, and created statistic to visualize the data. we were able to get initial valid information but still need more clarity for further data analysis, so I established a new variable, "number of free wifi", to quantify the performance of free wifi in different building types, and then knitr to get @tbl-final:
-
+Focusing on the impact of population and income on free WiFi distribution, we narrowed our analysis to these two variables.  While initial data provided valuable insights, we sought further clarity through digital analysis.  To quantify the performance of free WiFi across different building types, we created a new variable by combining it with the first dataset, labeled "number of free WiFi," then getting @tbl-final to facilitate deeper investigation:
 ```{r}
 #| label: tbl-final
 #| tbl-cap: Sample of final ward data
@@ -140,14 +140,13 @@ final_data %>%
 
 ```
 
-From @tbl-final, there are 25 wards in total in the City of Toronto, and the wards with the highest population is Etobicoke-Lakeshore (Ward 3) at 139920, and the wards with the lowest population is Scarborough North (Ward 23) at 94025. The wards with the highest household income is Spadina-Fort York (Ward 10) at $80730$, and the wards with the lowest household income is Humber River-Black Creek (Ward 7) at $65,458$. The wards with the highest household income is Spadina-Fort York (Ward 10) at $80730$, and the wards with the lowest household income is Humber River-Black Creek (Ward 7) at $65,458$. The wards with the biggest number of Free public wifi is Humber River-Black Creek (Ward 7) at 14, and the wards with the smallest number of Free public wifi are Etobicoke Centre (Ward 2) at 5, Willowdale (Ward 18) at 5.
+@tbl-final reveals key insights into the population, median income and amount of public WiFi of Toronto's 25 wards. It highlights variations in population size, median income, and the number of free WiFi hotspots across these wards.  For instance, Etobicoke-Lakeshore (Ward 3) boasts the highest population count at 139,920, while Scarborough North (Ward 23) records the lowest at 94,025.   Similarly, Spadina-Fort York (Ward 10) ranks highest in median household income at 80,730 dollars, contrasting with Humber River-Black Creek (Ward 7), which reports the lowest income at 65,458 dollars.   In terms of free WiFi availability, Humber River-Black Creek (Ward 7) leads with 14 hotspots, whereas both Etobicoke Centre (Ward 2) and Willowdale (Ward 18) have the fewest, each with 5.
 
-
-It intuitively shows the social developments of 25 neighbourhoods in Toronto, including population, median income, and number of wifi, providing data support for the following study of the linear relationship between the three. It is important to note that, according to the database, more populated neighborhoods do not necessarily have more median income, as well as the number of free wifi. This observation underscores the complexity of urban dynamics and highlights the need to analyze each variable independently to understand its impact on public WiFi distribution.
+It intuitively shows the social developments of 25 neighbourhoods in Toronto, including population, median income, and number of WiFi, providing data support for the following study of the linear relationship between the three. It is important to note that, according to the database, more populated neighborhoods do not necessarily have more median income, as well as the number of free WiFi. This observation underscores the complexity of urban dynamics and highlights the need to analyze each variable independently to understand its impact on public WiFi distribution.
 
 ```{r}
 #| label: fig-interest
-#| fig-cap: The number of free Wifi available in different wards in Toronto
+#| fig-cap: The number of free WiFi available in different wards in Toronto
 #| echo: false
 #| warning: false
 
@@ -157,9 +156,9 @@ final_data |> ggplot(aes(x = WardNumber, y = Number_of_free_wifi)) +
   geom_col() +
   theme(axis.text.x = element_text(angle = 45, vjust = 0.9, hjust=1)) +
   labs(
-    title = "The number of free Wifi available in different wards in Toronto",
+    title = "The number of free WiFi available in different wards in Toronto",
     x = "Ward Number",
-    y = "Number of Free Public Wifi"
+    y = "Number of Free Public WiFi"
   ) 
 ```
 @fig-interest illustrates the disparities in public WiFi distribution across Toronto's wards, highlighting variations in coverage levels. Specifically, Ward 1, Ward 3, and Ward 7 stand out with substantially higher numbers of public WiFi hotspots compared to the median value of 8. Ward 1, with 12 hotspots, Ward 3, with 13 hotspots, and Ward 7, with 14 hotspots, each exceed the median by more than 1/3, indicating significantly more extensive coverage in these areas. In contrast, the number of public WiFi hotspots in other wards remains relatively consistent and does not exhibit any significant shortages. This observation suggests that while certain wards benefit from robust public WiFi infrastructure, others may experience disparities in access, highlighting the need for targeted interventions to promote equitable Interncet connectivity across all neighborhoods in Toronto.
@@ -178,7 +177,7 @@ income_model <- readRDS(here::here("outputs/models/income_model.rds"))
 
 ```
 
-After conducting data analysis of the two dataset, we have observed that there might be a correlation between the population of a ward and the number of free public WiFi in this ward, as well as the median income of a ward and the number of free public WiFi in this ward. To gain further insights and give resaonable advise about future Toronto public free wifi distribution, we construct two linear regression models, tested the two hypotheses separately.
+After conducting data analysis of the two dataset, we have observed that there might be a correlation between the population of a ward and the number of free public WiFi in this ward, as well as the median income of a ward and the number of free public WiFi in this ward. To gain further insights and give resaonable advise about future Toronto public free WiFi distribution, we construct two linear regression models, tested the two hypotheses separately.
 
 In the section below, the final models are detailed investigated here.
 
@@ -194,7 +193,7 @@ $$
 
 ## Model justification
 
-Our goal of the linear regression model is to estimate the values of $\beta_0$ and $\beta_1$ that minimize the sum of squared errors between the number of  public free wifi of a ward ($Y$) and the population or the median income correspounding ward ($X$) in the data sets. By minimizing this sum of squared errors, the linear regression model can produce the best-fit line to describe the linear relationship between the two variables, allowing for the estimation of $Y$ values based on known $X$ values.       
+Our goal of the linear regression model is to estimate the values of $\beta_0$ and $\beta_1$ that minimize the sum of squared errors between the number of  public free WiFi of a ward ($Y$) and the population or the median income correspounding ward ($X$) in the data sets. By minimizing this sum of squared errors, the linear regression model can produce the best-fit line to describe the linear relationship between the two variables, allowing for the estimation of $Y$ values based on known $X$ values.       
 
 In addition, the statistical significance of $\beta_1$  can be assessed using a t-test, which tests whether the estimated coefficient is significantly different from zero. If the p-value of the t-test is less than a chosen significance level, we can conclude that there is a significant relationship between the population of a ward and the number of free public WiFi in this ward, as well as the median income of a ward and the number of free public WiFi in this ward.
 
@@ -208,7 +207,7 @@ In addition, the statistical significance of $\beta_1$  can be assessed using a 
 
 ```{r}
 #| label: fig-building
-#| fig-cap: The number of free Wifi in Toronto by building type
+#| fig-cap: The number of free WiFi in Toronto by building type
 #| echo: false
 #| warning: false
 
@@ -220,7 +219,7 @@ building_data |>
   theme(axis.text.x = element_text(angle = 90, hjust=1)) +
   labs(
     x = "Building Types",
-    y = "Number of Free Public Wifi"
+    y = "Number of Free Public WiFi"
   ) 
 
 ```
@@ -239,7 +238,7 @@ The prevalence of free WiFi in libraries and CRCs highlights their significance 
 
 ```{r}
 #| label: fig-1
-#| fig-cap: Linear regression model of the number of Free public wifi by the populations of all wards in Toronto.
+#| fig-cap: Linear regression model of the number of Free public WiFi by the populations of all wards in Toronto.
 #| echo: false
 #| warning: false
 
@@ -255,12 +254,12 @@ population_model |>
   ) +
   labs(
     x = "Population of a Ward",
-    y = "Number of Free Wifi in a ward"
+    y = "Number of Free WiFi in a ward"
   ) +
   theme_classic()
 
 ```
-The first linear regression model, as illustrated in @fig-1, explores the relationship between the number of free public WiFi locations in a ward and the population of corresponding ward across Toronto, which is a slight positive correlation. The scatterplot depicts the general trend of increased number of public wifi as bigger population, further emphasized by the regression line. The model indicates that as the population of a ward gets bigger, the number of free public wifi increases as well. 
+The first linear regression model, as illustrated in @fig-1, explores the relationship between the number of free public WiFi locations in a ward and the population of corresponding ward across Toronto, which is a slight positive correlation. The scatterplot depicts the general trend of increased number of public WiFi as bigger population, further emphasized by the regression line. The model indicates that as the population of a ward gets bigger, the number of free public WiFi increases as well. 
 
 @tbl-model1 displays the coefficients of the predictor variables of the linear regression model. The coefficient for population (0.00) from @tbl-model1 indicates that there is no statistically significant linear relationship between the population of a ward and the number of free public WiFi locations it hosts, as the coefficient's p-value exceeds conventional thresholds for significance. This finding suggests that the population size alone may not be a strong predictor of the availability of free public WiFi in Toronto's wards. The model's low R-squared value of 0.045 and adjusted R-squared value of 0.003 indicate that only a very small proportion of the variability in the number of free public WiFi locations can be explained by the population size of the wards. The model's RMSE (Root Mean Square Error) of 2.26 suggests that the model's predictions deviate from the actual values by an average of 2.26 free public WiFi locations.
 
@@ -286,7 +285,7 @@ modelsummary::modelsummary(
 
 ```{r}
 #| label: fig-2
-#| fig-cap: Linear regression model of the number of Free public wifi by the Average Income of all wards in Toronto.
+#| fig-cap: Linear regression model of the number of Free public WiFi by the Average Income of all wards in Toronto.
 #| echo: false
 #| warning: false
 
@@ -302,12 +301,12 @@ income_model |>
   ) +
   labs(
     x = "Median Income of a Ward",
-    y = "Number of Free Wifi in a ward"
+    y = "Number of Free WiFi in a ward"
   ) +
   theme_classic()
 
 ```
-The first linear regression model, as illustrated in @fig-2, explores the relationship between the number of free public WiFi locations in a ward and the median income of corresponding ward in Toronto, which shows very limited correlation. The scatterplot shows that all the points distributed very scattered and disordered, and cannot find a general trend of increased or decreased number of public wifi as bigger population.    Also the regression line is almost parallel to the x-axis. The model indicates that there is nearly no relationship between the median income of a ward and the number of free public WiFi locations it hosts.
+The second linear regression model, as illustrated in @fig-2, explores the relationship between the number of free public WiFi locations in a ward and the median income of corresponding ward in Toronto, which shows very limited correlation. The scatterplot shows that all the points distributed very scattered and disordered, and cannot find a general trend of increased or decreased number of public WiFi as bigger population.    Also the regression line is almost parallel to the x-axis. The model indicates that there is nearly no relationship between the median income of a ward and the number of free public WiFi locations it hosts.
 
 @tbl-model2 displays the coefficients of the predictor variables of the linear regression model. The coefficient for income is 0.00, suggesting that there is virtually no change in the number of free WiFi locations with an increase in median income.  Additionally, the R-squared value of 0.001 indicates that only a negligible proportion of the variance in the number of free WiFi locations can be explained by median income.  The adjusted R-squared value of -0.043 further suggests that the model's predictive power is very low.  
 
@@ -328,15 +327,15 @@ modelsummary::modelsummary(
 
 \newpage
 
-Based one the two linear regression models, we can conclude that the population of a ward has slightly positive correlation with the number of Toronto public wifi, but there is no observable correlation between the number of Toronto public wifi and the median household income in a ward.
+Based one the two linear regression models, we can conclude that the population of a ward has slightly positive correlation with the number of Toronto public WiFi, but there is no observable correlation between the number of Toronto public WiFi and the median household income in a ward.
 
-
+\newpage
 
 # Discussion {#sec-disc}
 
 ## Findings and advice
 
-The findings of this study shed light on the intricate relationship between public Wifi distribution and urban social characteristics in Toronto. The intricate dynamics surrounding public WiFi distribution in Toronto encompass a multitude of factors that interact to shape urban wareless Internet connectivity. Beyond simplistic correlations, this study delves into the interplay between the distribution of public wifi, income, population, and building types.
+The findings of this study shed light on the intricate relationship between public Wifi distribution and urban social characteristics in Toronto. The intricate dynamics surrounding public WiFi distribution in Toronto encompass a multitude of factors that interact to shape urban wareless Internet connectivity. Beyond simplistic correlations, this study delves into the interplay between the distribution of public WiFi, income, population, and building types.
 
 Firstly, while median income is often presumed to be a determining factor in access to resources, this study challenges that assumption.  The negligible impact of income on the availability of free WiFi locations suggests that other factors may hold greater significance.  This could include the allocation of resources by municipal authorities, the presence of community initiatives, or the density of public amenities, all of which may influence WiFi accessibility independently of income levels.
 
@@ -344,7 +343,9 @@ Secondly, the study sheds light on the role of infrastructure and community enga
 
 Moreover, the study underscores the importance of considering the diverse needs and preferences of communities when planning WiFi infrastructure.  Factors such as cultural diversity, language barriers, and digital literacy levels may influence the effectiveness of public WiFi initiatives and require tailored solutions to ensure inclusivity.
 
-Overall, the intricate dynamics surrounding public WiFi distribution in Toronto highlight the need for a comprehensive and context-sensitive approach to urban connectivity.  By understanding and addressing the multifaceted factors at play, policymakers, urban planners, and community advocates can develop more effective strategies to bridge the digital divide and foster a truly equitable society.Understanding these findings is crucial for policymakers, urban planners, and community advocates seeking to bridge the digital divide and foster a more equitable society.
+Overall, the intricate dynamics surrounding public WiFi distribution in Toronto highlight the need for a and context-sensitive approach to urban connectivity.  By understanding and addressing the multifaceted factors at play, policymakers, urban planners, and community advocates can develop more effective strategies to bridge the digital divide and foster a truly equitable society.
+
+Here are some extra analysis as advice:
 
 **Equitable Access to Public WiFi: A Necessity, Not a Luxury**
 
@@ -352,16 +353,12 @@ One of the central themes emerging from our analysis is the importance of equita
 
 **Addressing Differences caused by population density**
 
-Another significant finding is the variation in public WiFi distribution across population density found by linear regression model. Although median income of a ward doesn't play a big role in the distribution of public free wifi, wards with bigger population tend to have more extensive coverage compared to less crowed places. This disparity suggests that access to public WiFi is not evenly distributed across the city, potentially exacerbating existing inequalities, since fewer public wifi leads to less Internet conections and usages, making it increasingly difficult for networks development in the region. To address this issue, policymakers should prioritize investment in underserved communities, ensuring that all residents have access to essential digital resources.
+Another significant finding is the variation in public WiFi distribution across population density found by linear regression model. Although median income of a ward doesn't play a big role in the distribution of public free WiFi, wards with bigger population tend to have more extensive coverage compared to less crowed places. This disparity suggests that access to public WiFi is not evenly distributed across the city, potentially exacerbating existing inequalities, since fewer public WiFi leads to less Internet conections and usages, making it increasingly difficult for networks development in the region. To address this issue, policymakers should prioritize investment in underserved communities, ensuring that all residents have access to essential digital resources.
 
 
 **Implications for Urban Policy**
 
-The findings of this study have several implications for urban policy and planning. Firstly, policymakers should prioritize the equitable distribution of public WiFi infrastructure, particularly in underserved neighborhoods. This may involve targeted investment in community centers, libraries, and public spaces to ensure that all residents have access to reliable internet connectivity.
-
-Secondly, urban planners should integrate considerations of digital equity into their decision-making processes. By prioritizing projects that promote connectivity and digital inclusion, cities can create more resilient and equitable communities.
-
-Finally, community engagement and collaboration are essential for addressing the digital divide. By involving local residents in the planning and implementation of public WiFi initiatives, cities can ensure that solutions are tailored to the specific needs of each community.
+The findings of this study have several implications for urban policy and planning. Firstly, policymakers should prioritize the equitable distribution of public WiFi infrastructure, particularly in underserved neighborhoods. This may involve targeted investment in community centers, libraries, and public spaces to ensure that all residents have access to reliable internet connectivity. Secondly, urban planners should integrate considerations of digital equity into their decision-making processes. By prioritizing projects that promote connectivity and digital inclusion, cities can create more resilient and equitable communities. Finally, community engagement and collaboration are essential for addressing the digital divide. By involving local residents in the planning and implementation of public WiFi initiatives, cities can ensure that solutions are tailored to the specific needs of each community.
 
 
 ## Bias and ethical concerns
@@ -374,7 +371,7 @@ An important consideration is measurement bias, which arises from inaccuracies o
 
 **Sampling Bias**
 
-If the sample size is not representative of the Toronto population, or if certain groups are excluded or underrepresented in our analysis, then sampling bias poses a significant risk to the validity of our findings. By ensuring that our sample is inclusive and representative, we can mitigate the effects of sampling bias and draw more accurate conclusions about the relationship between population, income, and public wifi distribution.
+If the sample size is not representative of the Toronto population, or if certain groups are excluded or underrepresented in our analysis, then sampling bias poses a significant risk to the validity of our findings. By ensuring that our sample is inclusive and representative, we can mitigate the effects of sampling bias and draw more accurate conclusions about the relationship between population, income, and public WiFi distribution.
 
 **Ethical Considerations**
 
@@ -383,12 +380,11 @@ Ethical considerations are crucial in any research effort, especially when it co
 In conclusion, navigating bias and ethical considerations is essential for producing meaningful and actionable insights into research of public WiFi distribution in Toronto. By acknowledging these challenges, we can enhance the validity and integrity of our research findings and contribute to the development of more equitable policies.
 
 
-\newpage
 ## Weaknesses & Next Steps
 
-A significant limitation of our study is the complexity of the factors that influence the distribution of public WiFi in Toronto. While we strive to gather comprehensive data sets on population, median income, and the number of free WiFi locations, it is important to recognize that the influencing factors are multifaceted and interdependent. The true determinants of public WiFi distribution likely include a wide range of socioeconomic, infrastructural, and community-related factors that are difficult to accurately capture through quantitative analysis alone.
+A significant limitation of our study is the complexity of the factors that influence the distribution of public WiFi in Toronto. While we strive to gather data sets on population, median income, and the number of free WiFi locations, it is important to recognize that the influencing factors are multifaceted and interdependent. The true determinants of public WiFi distribution likely include a wide range of socioeconomic, infrastructural, and community-related factors that are difficult to accurately capture through quantitative analysis alone.
 
-To address this limitation, we must employ a holistic approach that combines qualitative research methods, stakeholder interviews, and community engagement initiatives to gain a deeper understanding of the potential drivers of public WiFi distribution. Through a combination of quantitative and qualitative analysis, we can spot subtle dynamic changes and develop more comprehensive strategies to improve public WiFi connectivity in Toronto.
+To address this limitation, we must employ a holistic approach that combines qualitative research methods, stakeholder interviews, and community engagement initiatives to gain a deeper understanding of the potential drivers of public WiFi distribution. Through a combination of quantitative and qualitative analysis, we can spot subtle dynamic changes and develop more strategies to improve public WiFi connectivity in Toronto.
 
 
 \newpage
