@@ -394,7 +394,7 @@ To address this limitation, we must employ a holistic approach that combines qua
 
 # Appendix 
 
-For enhancement, I take advantage of shiny, which is to quickly add some interactivity to our graphs according to the simulated data. Here(@fig-shiny) is the screnshot of my shiny work, and the interactive graphis is in the folder "Enhancement - Shiny Plot".
+For enhancement, I take advantage of shiny, which is to quickly add some interactivity to our graphs according to the simulated data. Here(@fig-shiny) is the screnshot of my shiny work, and the interactive graph is is in the folder "Enhancement - Shiny Plot".
 
 ```{r}
 #| echo: false
