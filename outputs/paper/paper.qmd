@@ -337,7 +337,15 @@ Based one the two linear regression models, we can conclude that the population 
 
 ## Findings and advice
 
-The findings of this study shed light on the intricate relationship between public WiFi distribution and urban connectivity in Toronto. Understanding these findings is crucial for policymakers, urban planners, and community advocates seeking to bridge the digital divide and foster a more equitable society.
+The findings of this study shed light on the intricate relationship between public WiFi distribution and urban social characteristics in Toronto. The intricate dynamics surrounding public WiFi distribution in Toronto encompass a multitude of factors that interact to shape urban wareless Internet connectivity.      Beyond simplistic correlations, this study delves into the interplay between the distribution of public wifi, income, population, and building types.
+
+Firstly, while median income is often presumed to be a determining factor in access to resources, this study challenges that assumption.  The negligible impact of income on the availability of free WiFi locations suggests that other factors may hold greater significance.  This could include the allocation of resources by municipal authorities, the presence of community initiatives, or the density of public amenities, all of which may influence WiFi accessibility independently of income levels.
+
+Secondly, the study sheds light on the role of infrastructure and community engagement in shaping public WiFi distribution. For instance, areas with higher population densities or greater concentrations of public amenities, such as libraries or community centers, may naturally attract more public WiFi installations due to higher foot traffic and demand.  Additionally, community-led initiatives or partnerships between local organizations and internet service providers could contribute to the expansion of WiFi networks in underserved areas.
+
+Moreover, the study underscores the importance of considering the diverse needs and preferences of communities when planning WiFi infrastructure.  Factors such as cultural diversity, language barriers, and digital literacy levels may influence the effectiveness of public WiFi initiatives and require tailored solutions to ensure inclusivity.
+
+Overall, the intricate dynamics surrounding public WiFi distribution in Toronto highlight the need for a comprehensive and context-sensitive approach to urban connectivity.  By understanding and addressing the multifaceted factors at play, policymakers, urban planners, and community advocates can develop more effective strategies to bridge the digital divide and foster a truly equitable society.Understanding these findings is crucial for policymakers, urban planners, and community advocates seeking to bridge the digital divide and foster a more equitable society.
 
 **Equitable Access to Public WiFi: A Necessity, Not a Luxury**
 
@@ -359,21 +367,31 @@ Finally, community engagement and collaboration are essential for addressing the
 
 ## Bias and ethical concerns
 
+As we delve into the analysis of public WiFi distribution in Toronto, it is important to navigate through various biases and ethical considerations that may influence our findings and subsequent policy recommendations. We explore three points that underscore the importance of addressing bias and ethical concerns in our research.
+
+**Measurement Bias**
+
+An important consideration is measurement bias, which arises from inaccuracies or inconsistencies in measuring or reporting variables such as population, median income, and the number of free WiFi locations. For example, relying on self-reported revenue data can introduce errors and discrepancies across wards. To address measurement bias, we must employ reliable data collection methods and validate our findings by cross-referencing with multiple sources.
+
+**Sampling Bias**
+
+If the sample size is not representative of the Toronto population, or if certain groups are excluded or underrepresented in our analysis, then sampling bias poses a significant risk to the validity of our findings. By ensuring that our sample is inclusive and representative, we can mitigate the effects of sampling bias and draw more accurate conclusions about the relationship between population, income, and public wifi distribution.
+
+**Ethical Considerations**
+
+Ethical considerations are crucial in any research effort, especially when it comes to the collection and analysis of personal data. In the context of public WiFi distribution, we must prioritize the privacy of individuals, including anonymizing personal information, and adhere to strict privacy regulations to safeguard the confidentiality and rights of participants.
+
+In conclusion, navigating bias and ethical considerations is essential for producing meaningful and actionable insights into research of public WiFi distribution in Toronto. By acknowledging these challenges, we can enhance the validity and integrity of our research findings and contribute to the development of more equitable policies.
 
 
 \newpage
 ## Weaknesses & Next Steps
 
+A significant limitation of our study is the complexity of the factors that influence the distribution of public WiFi in Toronto. While we strive to gather comprehensive data sets on population, median income, and the number of free WiFi locations, it is important to recognize that the influencing factors are multifaceted and interdependent. The true determinants of public WiFi distribution likely include a wide range of socioeconomic, infrastructural, and community-related factors that are difficult to accurately capture through quantitative analysis alone.
 
-\newpage
-All in all, a significant number of people are increasingly relying on public Wi-Fi when they're out and about, underscoring their need for instant, hassle-free connectivity. Whether for work, social interaction or navigation, the modern lifestyle requires a seamless Internet experience, and the increasing number of academic and recreational projects joining the ranks of the application of public free WiFi is undoubtedly a strong support for the development of public WiFi in Toronto.
-
-Furthermore, our data analysis indicates that while population size does exert a modest impact on the dissemination of free WiFi, the average income of a region lacks sufficient influence to be regarded as a determining factor in the allocation of public WiFi.
+To address this limitation, we must employ a holistic approach that combines qualitative research methods, stakeholder interviews, and community engagement initiatives to gain a deeper understanding of the potential drivers of public WiFi distribution. Through a combination of quantitative and qualitative analysis, we can spot subtle dynamic changes and develop more comprehensive strategies to improve public WiFi connectivity in Toronto.
 
 
-In conclusion, the findings of this study underscore the importance of equitable access to public WiFi in fostering urban connectivity and social inclusion.         By addressing disparities in WiFi distribution and prioritizing digital equity in urban policy and planning initiatives, cities can create more resilient, connected, and equitable communities for all residents.
-
-Also, by targeting building types with limited connectivity, policymakers can work towards improving the wifi  coverage in relatively backward buildings and promoting inclusivity in urban development efforts.                can work towards closing the digital divide and promoting inclusivity in urban development efforts.
 
 # Appendix 
 \newpage
