@@ -392,8 +392,17 @@ A significant limitation of our study is the complexity of the factors that infl
 To address this limitation, we must employ a holistic approach that combines qualitative research methods, stakeholder interviews, and community engagement initiatives to gain a deeper understanding of the potential drivers of public WiFi distribution. Through a combination of quantitative and qualitative analysis, we can spot subtle dynamic changes and develop more comprehensive strategies to improve public WiFi connectivity in Toronto.
 
 
-
 # Appendix 
+
+For enhancement, I take advantage of shiny, which is to quickly add some interactivity to our graphs according to the simulated data. Here(@fig-shiny) is the screnshot of my shiny work, and the interactive graphis is in the folder "Enhancement - Shiny Plot".
+
+```{r}
+#| echo: false
+#| warning: false
+#| label: fig-shiny
+knitr::include_graphics("Shiny.png")
+```
+
 \newpage
 
 # References

@@ -1,101 +1,101 @@
-has_wifi,building_type,ward,ward_number
-Y,library,Etobicoke North,1
-Y,library,Etobicoke Centre,2
-Y,library,Etobicoke-Lakeshore,3
-Y,library,Parkdale-High Park,4
-Y,library,York South-Weston,5
-Y,library,York Centre,6
-Y,library,Humber River-Black Creek,7
-Y,library,Eglinton-Lawrence,8
-Y,library,Davenport,9
-Y,library,Spadina-Fort York,10
-Y,library,University-Rosedale,11
-Y,library,Toronto-St. Paul's,12
-Y,library,Toronto Centre,13
-Y,library,Toronto-Danforth,14
-Y,library,Don Valley West,15
-Y,library,Don Valley East,16
-Y,library,Don Valley North,17
-Y,library,Willowdale,18
-Y,library,Beaches-East York,19
-Y,library,Scarborough Southwest,20
-Y,Arena,Scarborough Centre,21
-Y,Arena,Scarborough-Agincourt,22
-Y,Arena,Scarborough North,23
-Y,Arena,Scarborough-Guildwood,24
-Y,Arena,Scarborough-Rouge Park,25
-Y,Arena,Etobicoke North,1
-Y,Arena,Etobicoke Centre,2
-Y,Arena,Etobicoke-Lakeshore,3
-Y,Arena,Parkdale-High Park,4
-Y,Arena,York South-Weston,5
-Y,Arena,York Centre,6
-Y,Arena,Humber River-Black Creek,7
-Y,Arena,Eglinton-Lawrence,8
-Y,Arena,Davenport,9
-Y,Arena,Spadina-Fort York,10
-Y,Arena,University-Rosedale,11
-Y,Arena,Toronto-St. Paul's,12
-Y,Arena,Toronto Centre,13
-Y,Arena,Toronto-Danforth,14
-Y,Arena,Don Valley West,15
-Y,Arena,Don Valley East,16
-Y,Arena,Don Valley North,17
-Y,Arena,Willowdale,18
-Y,Arena,Beaches-East York,19
-Y,Arena,Scarborough Southwest,20
-Y,Arena,Scarborough Centre,21
-Y,Arena,Scarborough-Agincourt,22
-Y,Arena,Scarborough North,23
-Y,Arena,Scarborough-Guildwood,24
-Y,Arena,Scarborough-Rouge Park,25
-Y,Arena,Etobicoke North,1
-Y,Arena,Etobicoke Centre,2
-Y,Arena,Etobicoke-Lakeshore,3
-Y,Arena,Parkdale-High Park,4
-Y,Arena,York South-Weston,5
-Y,Arena,York Centre,6
-Y,Arena,Humber River-Black Creek,7
-Y,Arena,Eglinton-Lawrence,8
-Y,Arena,Davenport,9
-Y,Arena,Spadina-Fort York,10
-Y,Community,University-Rosedale,11
-Y,Community,Toronto-St. Paul's,12
-Y,Community,Toronto Centre,13
-Y,Community,Toronto-Danforth,14
-Y,Community,Don Valley West,15
-Y,Community,Don Valley East,16
-Y,Community,Don Valley North,17
-Y,Community,Willowdale,18
-Y,Community,Beaches-East York,19
-Y,Community,Scarborough Southwest,20
-Y,Community,Scarborough Centre,21
-Y,Community,Scarborough-Agincourt,22
-Y,Community,Scarborough North,23
-Y,Community,Scarborough-Guildwood,24
-Y,Community,Scarborough-Rouge Park,25
-Y,Community,Etobicoke North,1
-Y,Community,Etobicoke Centre,2
-Y,Community,Etobicoke-Lakeshore,3
-Y,Community,Parkdale-High Park,4
-Y,Community,York South-Weston,5
-Y,Community,York Centre,6
-Y,Community,Humber River-Black Creek,7
-Y,Community,Eglinton-Lawrence,8
-Y,Community,Davenport,9
-Y,Community,Spadina-Fort York,10
-Y,Community,University-Rosedale,11
-Y,Community,Toronto-St. Paul's,12
-Y,Community,Toronto Centre,13
-Y,Community,Toronto-Danforth,14
-Y,Community,Don Valley West,15
-Y,Community,Don Valley East,16
-Y,Community,Don Valley North,17
-Y,Community,Willowdale,18
-Y,Community,Beaches-East York,19
-Y,Community,Scarborough Southwest,20
-Y,Community,Scarborough Centre,21
-Y,Community,Scarborough-Agincourt,22
-Y,Community,Scarborough North,23
-Y,Community,Scarborough-Guildwood,24
-Y,Community,Scarborough-Rouge Park,25
+building_number,has_wifi,building_type,ward,ward_number
+1,Y,library,Etobicoke North,1
+2,Y,library,Etobicoke Centre,2
+3,Y,library,Etobicoke-Lakeshore,3
+4,Y,library,Parkdale-High Park,4
+5,Y,library,York South-Weston,5
+6,Y,library,York Centre,6
+7,Y,library,Humber River-Black Creek,7
+8,Y,library,Eglinton-Lawrence,8
+9,Y,library,Davenport,9
+10,N,library,Spadina-Fort York,10
+11,Y,library,University-Rosedale,11
+12,Y,library,Toronto-St. Paul's,12
+13,Y,library,Toronto Centre,13
+14,N,library,Toronto-Danforth,14
+15,Y,library,Don Valley West,15
+16,Y,library,Don Valley East,16
+17,Y,library,Don Valley North,17
+18,N,library,Willowdale,18
+19,Y,library,Beaches-East York,19
+20,N,library,Scarborough Southwest,20
+21,Y,Arena,Scarborough Centre,21
+22,Y,Arena,Scarborough-Agincourt,22
+23,Y,Arena,Scarborough North,23
+24,Y,Arena,Scarborough-Guildwood,24
+25,Y,Arena,Scarborough-Rouge Park,25
+26,Y,Arena,Etobicoke North,1
+27,Y,Arena,Etobicoke Centre,2
+28,Y,Arena,Etobicoke-Lakeshore,3
+29,Y,Arena,Parkdale-High Park,4
+30,Y,Arena,York South-Weston,5
+31,Y,Arena,York Centre,6
+32,Y,Arena,Humber River-Black Creek,7
+33,Y,Arena,Eglinton-Lawrence,8
+34,N,Arena,Davenport,9
+35,Y,Arena,Spadina-Fort York,10
+36,Y,Arena,University-Rosedale,11
+37,Y,Arena,Toronto-St. Paul's,12
+38,Y,Arena,Toronto Centre,13
+39,Y,Arena,Toronto-Danforth,14
+40,Y,Arena,Don Valley West,15
+41,Y,Arena,Don Valley East,16
+42,Y,Arena,Don Valley North,17
+43,Y,Arena,Willowdale,18
+44,Y,Arena,Beaches-East York,19
+45,Y,Arena,Scarborough Southwest,20
+46,Y,Arena,Scarborough Centre,21
+47,Y,Arena,Scarborough-Agincourt,22
+48,N,Arena,Scarborough North,23
+49,Y,Arena,Scarborough-Guildwood,24
+50,Y,Arena,Scarborough-Rouge Park,25
+51,Y,Arena,Etobicoke North,1
+52,Y,Arena,Etobicoke Centre,2
+53,Y,Arena,Etobicoke-Lakeshore,3
+54,Y,Arena,Parkdale-High Park,4
+55,Y,Arena,York South-Weston,5
+56,Y,Arena,York Centre,6
+57,N,Arena,Humber River-Black Creek,7
+58,N,Arena,Eglinton-Lawrence,8
+59,Y,Arena,Davenport,9
+60,Y,Arena,Spadina-Fort York,10
+61,Y,Community,University-Rosedale,11
+62,Y,Community,Toronto-St. Paul's,12
+63,Y,Community,Toronto Centre,13
+64,Y,Community,Toronto-Danforth,14
+65,Y,Community,Don Valley West,15
+66,Y,Community,Don Valley East,16
+67,Y,Community,Don Valley North,17
+68,Y,Community,Willowdale,18
+69,N,Community,Beaches-East York,19
+70,Y,Community,Scarborough Southwest,20
+71,Y,Community,Scarborough Centre,21
+72,Y,Community,Scarborough-Agincourt,22
+73,Y,Community,Scarborough North,23
+74,Y,Community,Scarborough-Guildwood,24
+75,Y,Community,Scarborough-Rouge Park,25
+76,Y,Community,Etobicoke North,1
+77,Y,Community,Etobicoke Centre,2
+78,Y,Community,Etobicoke-Lakeshore,3
+79,Y,Community,Parkdale-High Park,4
+80,Y,Community,York South-Weston,5
+81,Y,Community,York Centre,6
+82,Y,Community,Humber River-Black Creek,7
+83,Y,Community,Eglinton-Lawrence,8
+84,Y,Community,Davenport,9
+85,Y,Community,Spadina-Fort York,10
+86,Y,Community,University-Rosedale,11
+87,Y,Community,Toronto-St. Paul's,12
+88,Y,Community,Toronto Centre,13
+89,Y,Community,Toronto-Danforth,14
+90,Y,Community,Don Valley West,15
+91,Y,Community,Don Valley East,16
+92,Y,Community,Don Valley North,17
+93,Y,Community,Willowdale,18
+94,Y,Community,Beaches-East York,19
+95,N,Community,Scarborough Southwest,20
+96,N,Community,Scarborough Centre,21
+97,Y,Community,Scarborough-Agincourt,22
+98,Y,Community,Scarborough North,23
+99,Y,Community,Scarborough-Guildwood,24
+100,N,Community,Scarborough-Rouge Park,25

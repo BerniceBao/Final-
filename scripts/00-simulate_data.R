@@ -19,8 +19,8 @@ library(tidyverse)
 set.seed(85)
 
 simulated_data <-
-  tibble(
-    has_wifi = rep(x = "Y", times = 100),
+  tibble(building_number = c(1:100),
+    has_wifi = sample(c("Y","N"), size = 100, replace = TRUE, prob = c(0.9, 0.1)),
     # Based on: https://www.toronto.ca/city-government/accountability-operations-customer-service/long-term-vision-plans-and-strategies/smart-cityto/internet-connectivity-connectto/connectto-free-public-wifi-locations/
     building_type = c(
       rep(x = "library", times = 20),
