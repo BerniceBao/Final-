@@ -173,7 +173,6 @@ final_data |> ggplot(aes(x = WardNumber, y = Number_of_free_wifi)) +
 #| include: false
 
 # IMPORT MODEL FROM OUTPUTS FOLDER
-wifi_model <- readRDS(here::here("outputs/models/wifi_model.rds"))
 population_model <- readRDS(here::here("outputs/models/population_model.rds"))
 income_model <- readRDS(here::here("outputs/models/income_model.rds"))
 
@@ -337,7 +336,7 @@ Based one the two linear regression models, we can conclude that the population 
 
 ## Findings and advice
 
-The findings of this study shed light on the intricate relationship between public WiFi distribution and urban social characteristics in Toronto. The intricate dynamics surrounding public WiFi distribution in Toronto encompass a multitude of factors that interact to shape urban wareless Internet connectivity.      Beyond simplistic correlations, this study delves into the interplay between the distribution of public wifi, income, population, and building types.
+The findings of this study shed light on the intricate relationship between public Wifi distribution and urban social characteristics in Toronto. The intricate dynamics surrounding public WiFi distribution in Toronto encompass a multitude of factors that interact to shape urban wareless Internet connectivity. Beyond simplistic correlations, this study delves into the interplay between the distribution of public wifi, income, population, and building types.
 
 Firstly, while median income is often presumed to be a determining factor in access to resources, this study challenges that assumption.  The negligible impact of income on the availability of free WiFi locations suggests that other factors may hold greater significance.  This could include the allocation of resources by municipal authorities, the presence of community initiatives, or the density of public amenities, all of which may influence WiFi accessibility independently of income levels.
 
@@ -392,6 +391,7 @@ A significant limitation of our study is the complexity of the factors that infl
 To address this limitation, we must employ a holistic approach that combines qualitative research methods, stakeholder interviews, and community engagement initiatives to gain a deeper understanding of the potential drivers of public WiFi distribution. Through a combination of quantitative and qualitative analysis, we can spot subtle dynamic changes and develop more comprehensive strategies to improve public WiFi connectivity in Toronto.
 
 
+\newpage
 # Appendix 
 
 For enhancement, I take advantage of shiny, which is to quickly add some interactivity to our graphs according to the simulated data. Here(@fig-shiny) is the screnshot of my shiny work, and the interactive graph is is in the folder "Enhancement - Shiny Plot".
