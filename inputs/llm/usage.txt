@@ -1,1 +1,74 @@
-No LLM was used.
+The general AI was only used in the way of searching background information of each wards in Toronto.
+Here is the dialogue:
+
+User
+You
+Please give me a brief introduction to the various wards in Toronto.
+
+ChatGPT
+ChatGPT
+Sure, Toronto is divided into several wards, each with its own unique characteristics and communities. Here's a brief overview:
+
+Downtown Core: This area includes the Financial District, Entertainment District, and the Harbourfront. It's bustling with businesses, tourist attractions, and high-rise condominiums.
+North York: Located north of the downtown core, North York is a diverse area with residential neighborhoods, shopping centers like Yorkdale Mall, and cultural attractions such as the Ontario Science Centre.
+Scarborough: Situated to the east of Toronto, Scarborough is known for its diverse population, parks, and recreational facilities. It includes neighborhoods like Scarborough Bluffs and Scarborough Town Centre.
+Etobicoke: Located to the west of Toronto, Etobicoke is primarily residential with neighborhoods ranging from affluent areas like The Kingsway to more suburban areas. It's also home to parks along the Humber River and Lake Ontario.
+York: York includes neighborhoods such as Weston and Yorkdale. It's known for its historic sites, including the Black Creek Pioneer Village, and diverse communities.
+East York: East York was once a separate municipality but amalgamated with Toronto in 1998. It's primarily residential with tree-lined streets and parks.
+Midtown Toronto: This area includes neighborhoods like Yonge-Eglinton and Davisville. It's known for its mix of residential and commercial spaces, as well as cultural attractions like the Yonge Street strip.
+West Toronto: West Toronto includes neighborhoods such as Parkdale and High Park. It's known for its vibrant arts scene, green spaces like High Park, and diverse communities.
+Central Toronto: This ward encompasses areas like Forest Hill and Rosedale. It's known for its upscale neighborhoods, historic homes, and proximity to downtown.
+These are just some of the wards in Toronto, each offering its own unique blend of culture, amenities, and attractions.
+User
+You
+Please refer to the area code, there are 25 in total
+
+ChatGPT
+ChatGPT
+My apologies for the oversight. Toronto is divided into 25 wards, each represented by a city councillor. Here's a brief overview of each ward by area code:
+
+Ward 1 (Etobicoke North): Primarily covered by area codes 416 and 647, it includes neighborhoods like Rexdale and Thistletown.
+Ward 2 (Etobicoke Centre): Covered by area codes 416 and 647, it includes areas such as Islington-City Centre West and Kingsway South.
+Ward 3 (Etobicoke-Lakeshore): Covered by area codes 416 and 647, it includes neighborhoods like Mimico and New Toronto.
+Ward 4 (Parkdale-High Park): Covered by area codes 416 and 647, it includes areas such as Parkdale and High Park.
+Ward 5 (York South-Weston): Covered by area codes 416 and 647, it includes neighborhoods like Weston and Mount Dennis.
+Ward 6 (York Centre): Covered by area codes 416 and 647, it includes areas such as Downsview and Clanton Park.
+Ward 7 (Humber River-Black Creek): Covered by area codes 416 and 647, it includes neighborhoods like Jane and Finch and Humber Summit.
+Ward 8 (Eglinton-Lawrence): Covered by area codes 416 and 647, it includes areas such as Lawrence Park and North Toronto.
+Ward 9 (Davenport): Covered by area codes 416 and 647, it includes neighborhoods like Corso Italia and Dovercourt Park.
+Ward 10 (Spadina-Fort York): Covered by area codes 416 and 647, it includes areas such as CityPlace and the Entertainment District.
+And so on for the remaining wards up to 25, each with its own distinct neighborhoods, demographics, and characteristics.
+User
+You
+can you show me all？
+
+ChatGPT
+ChatGPT
+Of course! Here are all 25 wards in Toronto, along with their corresponding area codes:
+
+Ward 1 (Etobicoke North): 416, 647
+Ward 2 (Etobicoke Centre): 416, 647
+Ward 3 (Etobicoke-Lakeshore): 416, 647
+Ward 4 (Parkdale-High Park): 416, 647
+Ward 5 (York South-Weston): 416, 647
+Ward 6 (York Centre): 416, 647
+Ward 7 (Humber River-Black Creek): 416, 647
+Ward 8 (Eglinton-Lawrence): 416, 647
+Ward 9 (Davenport): 416, 647
+Ward 10 (Spadina-Fort York): 416, 647
+Ward 11 (University-Rosedale): 416, 647
+Ward 12 (Toronto-St. Paul's): 416, 647
+Ward 13 (Toronto Centre): 416, 647
+Ward 14 (Toronto-Danforth): 416, 647
+Ward 15 (Don Valley West): 416, 647
+Ward 16 (Don Valley East): 416, 647
+Ward 17 (Don Valley North): 416, 647
+Ward 18 (Willowdale): 416, 647
+Ward 19 (Beaches-East York): 416, 647
+Ward 20 (Scarborough Southwest): 416, 647
+Ward 21 (Scarborough Centre): 416, 647
+Ward 22 (Scarborough-Agincourt): 416, 647
+Ward 23 (Scarborough North): 416, 647
+Ward 24 (Scarborough-Guildwood): 416, 647
+Ward 25 (Scarborough-Rouge Park): 416, 647
+Each ward has its own unique communities, demographics, and characteristics, contributing to the diverse tapestry of Toronto.
